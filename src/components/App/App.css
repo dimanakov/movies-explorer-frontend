@@ -1,0 +1,12 @@
+.page {
+  font-family: 'Inter', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media (max-width: 920px) {
+  .page {
+    /* padding-top: 28px; */
+    /* padding-bottom: 36px; */
+  }
+}
