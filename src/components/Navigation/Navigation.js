@@ -1,27 +1,38 @@
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import profile from '../../images/profile.svg';
+import Button from '../Button/Button.js';
+
 
 export default function Navigation() {
 
+  const [menu, setMenu] = useState(false);
+
+  function handleMenuButton() {
+    setMenu(!menu);
+  }
+
   return (
+
     <div className="navigation">
-      <div className="navigation__container">
+      <Button sectionClass='navigation__burger-button'
+        label='открыть меню'
+        handleClick={handleMenuButton}>
+      </Button>
+      <nav className={`navigation__navbar ${menu ? 'navigation__navbar_active' : ''}`}>
         <ul className="navigation__menu">
-          <li className="navigation__item"><Link to='/' className="navigation__link">Главная</Link></li>
-          <li className="navigation__item"><Link to='/movies' className="navigation__link">Фильмы</Link></li>
-          <li className="navigation__item"><Link to='/saved-movies' className="navigation__link">Сохранённые фильмы</Link></li>
+          <li className="navigation__item"> <NavLink to='/' className="navigation__link" onClick={handleMenuButton}>Главная</NavLink></li>
+          <li className="navigation__item"> <NavLink to='/movies' className="navigation__link" onClick={handleMenuButton}>Фильмы</NavLink></li>
+          <li className="navigation__item"> <NavLink to='/saved-movies' className="navigation__link" onClick={handleMenuButton}>Сохранённые фильмы</NavLink></li>
         </ul>
-        <Link to='/profile' className='navigation__account'>
+        <NavLink to='/profile' className='navigation__account' onClick={handleMenuButton}>
           <img src={profile} className="navigation__profile" alt="профиль" />
-        </Link>
-        <button
-          type="button"
-          className="button button_focus navigation__close_button"
-          aria-label='закрыть'
-        // onClick={closeAllPopups}
-        >
-        </button>
-      </div>
+        </NavLink>
+        <Button sectionClass='navigation__close-button'
+          label='закрыть меню'
+          handleClick={handleMenuButton}>
+        </Button>
+      </nav>
     </div>
   )
 }

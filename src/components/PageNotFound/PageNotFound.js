@@ -1,17 +1,12 @@
 import { Link } from 'react-router-dom';
-import Container from '../Container/Container.js';
 
 export default function PageNotFound() {
 
   return (
     <div className="page-not-found">
-      <Container sectionClass="page-not-found__container">
-        <h2>404</h2>
-        <p>Страница не найдена</p>
-        <Link to="/">Назад</Link>
-      </Container>
-      <div className="page-not-found__container">
-      </div>
+      <h2 className="page-not-found__title">404</h2>
+      <p className="page-not-found__subtitle">Страница не найдена</p>
+      <Link to="/" className="page-not-found__link">Назад</Link>
     </div>
   );
 }

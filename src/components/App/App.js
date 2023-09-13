@@ -1,15 +1,16 @@
-import Header from '../Header/Header.js';
-import Main from '../Main/Main.js';
-import Footer from '../Footer/Footer.js';
-import Navigation from '../Navigation/Navigation.js';
+import { Routes, Route, useNavigate } from 'react-router-dom';
+import Landing from '../Landing/Landing.js';
+import Movies from '../Movies/Movies.js';
+import PageNotFound from '../PageNotFound/PageNotFound.js';
 
 export default function App() {
   return (
     <div className="page">
-      <Header />
-      <Main />
-      <Footer />
-      <Navigation />
+      <Routes>
+        <Route path='/' element={<Landing />} />
+        <Route path='/movies' element={<Movies />} />
+        <Route path='*' element={<PageNotFound />} />
+      </Routes>
     </div>
   );
 }

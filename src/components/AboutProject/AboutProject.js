@@ -7,7 +7,7 @@ export default function AboutProject() {
     <section className="about-project" id="about-project">
       <Container sectionClass="about-project__container">
         <SectionTitle sectionClass="about-project__title">О проекте</SectionTitle>
-        <div class="about-project__general">
+        <div className="about-project__general">
           <div className="about-project__paragraphs">
             <p className="about-project__subtitle">Дипломный проект включал 5 этапов</p>
             <Paragraph sectionClass="about-project__text">

@@ -6,8 +6,13 @@
 @import url('./components/App/App.css');
 /* Header */
 @import url('./components/Header/Header.css');
-/* Main */
-@import url('./components/Main/Main.css');
+/* Button */
+@import url('./components/Button/Button.css');
+/* Auth */
+@import url('./components/Auth/Auth.css');
+/* Navigation */
+@import url('./components/Navigation/Navigation.css');
+/* Landing */
 @import url('./components/Container/Container.css');
 @import url('./components/SectionTitle/SectionTitle.css');
 @import url('./components/SectionSubtitle/SectionSubtitle.css');
@@ -20,5 +25,7 @@
 @import url('./components/Portfolio/Portfolio.css');
 /* Footer */
 @import url('./components/Footer/Footer.css');
-/* Navigation */
-@import url('./components/Navigation/Navigation.css');
+/* Movies */
+@import url('./components/SearchForm/SearchForm.css');
+/* PageNotFound */
+@import url('./components/PageNotFound/PageNotFound.css');
