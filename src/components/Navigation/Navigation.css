@@ -1,6 +1,7 @@
 .navigation {
   position: relative;
   width: 100%;
+  z-index: 10;
 }
 
 .navigation__burger-button {
@@ -51,13 +52,13 @@
     display: block;
     background-image: url('../../images/burger-menu.svg');
     background-repeat: no-repeat;
-    background-size: 40px 43px;
+    background-size: contain;
     background-position: center;
     background-color: inherit;
     width: 40px;
     height: 43px;
     border: none;
-    margin: 15px 14px 16px auto;
+    margin: 15px 0 16px auto;
   }
 
   .navigation__navbar {

@@ -13,6 +13,7 @@
 /* Navigation */
 @import url('./components/Navigation/Navigation.css');
 /* Landing */
+@import url('./components/Landing/Landing.css');
 @import url('./components/Container/Container.css');
 @import url('./components/SectionTitle/SectionTitle.css');
 @import url('./components/SectionSubtitle/SectionSubtitle.css');
@@ -26,6 +27,11 @@
 /* Footer */
 @import url('./components/Footer/Footer.css');
 /* Movies */
+@import url('./components/Movies/Movies.css');
 @import url('./components/SearchForm/SearchForm.css');
+@import url('./components/FilterCheckbox/FilterCheckbox.css');
+@import url('./components/Preloader/Preloader.css');
+@import url('./components/MoviesCardList/MoviesCardList.css');
+@import url('./components/MoviesCard/MoviesCard.css');
 /* PageNotFound */
 @import url('./components/PageNotFound/PageNotFound.css');

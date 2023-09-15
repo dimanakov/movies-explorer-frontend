@@ -1,6 +1,7 @@
 import Container from "../Container/Container"
 import Button from "../Button/Button";
 import icon from '../../images/search-icon.svg';
+import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 
 export default function SearchForm({ onSubmit }) {
 
@@ -23,12 +24,14 @@ export default function SearchForm({ onSubmit }) {
             placeholder="Фильм"
             autoComplete="on"
             required />
-          <span className={`name-input-error form__input-error `}></span>
+          <span className={`name-input-error form__input-error`}></span>
           <Button buttonType="submit"
             sectionClass='search-form__submit'
             lable='submit'
             disabled='false'></Button>
         </form>
+        <div className="search-form__border"></div>
+        <FilterCheckbox sectionClass="search-form__box"/>
       </Container>
     </section>
   )

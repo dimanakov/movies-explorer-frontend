@@ -1,5 +1,6 @@
 .button {
   cursor: pointer;
+  transition: opacity .5s ease;
 }
 
 .button_focus:hover {

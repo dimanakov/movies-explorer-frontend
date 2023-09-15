@@ -3,11 +3,11 @@ import logo from '../../images/logo.svg';
 import Navigation from '../Navigation/Navigation.js';
 import Auth from '../Auth/Auth.js';
 
-export default function Header() {
+export default function Header({ sectionClass }) {
   const isLoggedIn = true;
 
   return (
-    <header className="header">
+    <header className={`header ${sectionClass}`}>
       <div className="header__container">
         <Link to='/' className="header__logo">
           <img src={logo}
