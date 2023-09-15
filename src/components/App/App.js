@@ -1,4 +1,4 @@
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Landing from '../Landing/Landing.js';
 import Movies from '../Movies/Movies.js';
 import PageNotFound from '../PageNotFound/PageNotFound.js';

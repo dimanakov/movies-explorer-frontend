@@ -5,6 +5,8 @@ import SearchForm from '../SearchForm/SearchForm.js';
 import MoviesCardList from '../MoviesCardList/MoviesCardList.js';
 import moviesApi from '../../utils/MoviesApi.js';
 import { useEffect, useState } from 'react';
+import presetMoviesList from '../../utils/presetMoviesCount.js';
+import ShowMore from '../ShowMore/ShowMore.js';
 
 export default function Movies() {
 
@@ -33,7 +35,8 @@ export default function Movies() {
     <main>
       <Header sectionClass='movies__header' />
       <SearchForm onSubmit={handleSubmitSearchMovies} />
-      <MoviesCardList movies={movies} />
+      <MoviesCardList movies={movies} presetMovies={presetMoviesList} />
+      <ShowMore />
       <Footer />
       {/* <Preloader /> */}
     </main>
