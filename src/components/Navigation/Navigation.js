@@ -21,11 +21,31 @@ export default function Navigation() {
       </Button>
       <nav className={`navigation__navbar ${menu ? 'navigation__navbar_active' : ''}`}>
         <ul className="navigation__menu">
-          <li className="navigation__item"> <NavLink to='/' className="navigation__link" onClick={handleMenuButton}>Главная</NavLink></li>
-          <li className="navigation__item"> <NavLink to='/movies' className="navigation__link" onClick={handleMenuButton}>Фильмы</NavLink></li>
-          <li className="navigation__item"> <NavLink to='/saved-movies' className="navigation__link" onClick={handleMenuButton}>Сохранённые фильмы</NavLink></li>
+          <li className="navigation__item">
+            <NavLink to='/'
+              className="navigation__link"
+              onClick={handleMenuButton}>
+              Главная
+            </NavLink>
+          </li>
+          <li className="navigation__item">
+            <NavLink to='/movies'
+              className="navigation__link"
+              onClick={handleMenuButton}>
+              Фильмы
+            </NavLink>
+          </li>
+          <li className="navigation__item">
+            <NavLink to='/saved-movies'
+              className="navigation__link"
+              onClick={handleMenuButton}>
+              Сохранённые фильмы
+            </NavLink>
+          </li>
         </ul>
-        <NavLink to='/profile' className='navigation__account' onClick={handleMenuButton}>
+        <NavLink to='/profile'
+          className='navigation__account'
+          onClick={handleMenuButton}>
           <img src={profile} className="navigation__profile" alt="профиль" />
         </NavLink>
         <Button sectionClass='navigation__close-button'

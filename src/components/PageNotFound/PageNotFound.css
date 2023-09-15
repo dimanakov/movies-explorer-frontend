@@ -31,6 +31,8 @@
   line-height: normal;
   text-decoration: none;
   color: #3456f3;
+  border: none;
+  background-color: inherit;
 }
 
 @media (max-width: 1220px) {
