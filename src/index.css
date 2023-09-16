@@ -6,6 +6,8 @@
 @import url('./components/App/App.css');
 /* Header */
 @import url('./components/Header/Header.css');
+/* Logo */
+@import url('./components/Logo/Logo.css');
 /* Button */
 @import url('./components/Button/Button.css');
 /* Auth */
@@ -34,5 +36,10 @@
 @import url('./components/MoviesCardList/MoviesCardList.css');
 @import url('./components/MoviesCard/MoviesCard.css');
 @import url('./components/ShowMore/ShowMore.css');
+/* SavedMovies */
+@import url('./components/SavedMovies/SavedMovies.css');
+/* Profile */
+@import url('./components/Profile/Profile.css');
+@import url('./components/ProfileContent/ProfileContent.css');
 /* PageNotFound */
 @import url('./components/PageNotFound/PageNotFound.css');

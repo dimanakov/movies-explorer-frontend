@@ -12,8 +12,8 @@ export default function SavedMovies(){
   }
 
   return(
-    <main>
-      <Header />
+    <main className="saved-movies">
+      <Header sectionClass="saved-movies__header"/>
       <SearchForm onSubmit={handleSubmitSearchMovies} />
       <MoviesCardList movies={movies} presetMovies={presetMoviesList} />
       <Footer />

@@ -1,19 +1,15 @@
-import { Link } from 'react-router-dom';
-import logo from '../../images/logo.svg';
+import { useState } from 'react';
 import Navigation from '../Navigation/Navigation.js';
 import Auth from '../Auth/Auth.js';
+import Logo from '../Logo/Logo.js';
 
 export default function Header({ sectionClass }) {
-  const isLoggedIn = true;
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   return (
     <header className={`header ${sectionClass}`}>
       <div className="header__container">
-        <Link to='/' className="header__logo">
-          <img src={logo}
-            className="logo"
-            alt="logo" />
-        </Link>
+        <Logo sectionClass="header__logo"/>
         {!isLoggedIn && <Auth />}
         {isLoggedIn && <Navigation />}
       </div>

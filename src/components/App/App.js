@@ -3,6 +3,7 @@ import Landing from '../Landing/Landing.js';
 import Movies from '../Movies/Movies.js';
 import PageNotFound from '../PageNotFound/PageNotFound.js';
 import SavedMovies from '../SavedMovies/SavedMovies.js';
+import Profile from '../Profile/Profile.js';
 
 export default function App() {
   return (
@@ -11,6 +12,7 @@ export default function App() {
         <Route path='/' element={<Landing />} />
         <Route path='/movies' element={<Movies />} />
         <Route path="/saved-movies" element={<SavedMovies />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path='*' element={<PageNotFound />} />
       </Routes>
     </div>
