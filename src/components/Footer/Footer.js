@@ -1,4 +1,5 @@
 import Container from '../Container/Container.js';
+import OutLink from '../OutLink/OutLink.js';
 
 export default function Footer() {
   return (
@@ -8,18 +9,16 @@ export default function Footer() {
         <div className="footer__block">
           <span className="footer__year">©2023</span>
           <div className="footer__links">
-            <a href="https://practicum.yandex.ru/"
-              className="footer__link"
-              rel="noopener noreferrer"
-              target="_blank">
+            <OutLink address="https://practicum.yandex.ru/"
+              sectionClass="footer__link"
+              _blank>
               Яндекс.Практикум
-            </a>
-            <a href="https://github.com/"
-              className="footer__link"
-              rel="noopener noreferrer"
-              target="_blank">
+            </OutLink>
+            <OutLink address="https://github.com/"
+              sectionClass="footer__link"
+              _blank>
               Github
-            </a>
+            </OutLink>
           </div>
         </div>
       </Container>

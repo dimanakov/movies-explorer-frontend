@@ -1,0 +1,41 @@
+.input-line {
+  color: #A0A0A0;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: normal;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-line__input {
+  color: #000;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: normal;
+  width: 396px;
+  background-color: inherit;
+  border: none;
+  outline: none;
+  margin-top: 5px;
+  padding: 0 0 10px;
+  border-bottom: 1px solid #E8E8E8;
+}
+
+.input-line__input:focus {
+  border-bottom: 1px solid #3456F3;
+}
+
+.input-line__error {
+  visibility: hidden;
+  color: #EE3465;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: normal;
+  min-height: 12px;
+  margin-top: 6px;
+  margin-bottom: 6px;
+}
+
+.input-line__error_active{
+  visibility: visible;
+}

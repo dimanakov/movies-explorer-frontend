@@ -59,9 +59,6 @@
   margin: 0;
   max-width: 300px;
   width: 100%;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
 }
 
 .profile-content__error {

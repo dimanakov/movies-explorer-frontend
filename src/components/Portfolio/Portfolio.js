@@ -1,4 +1,5 @@
 import Container from "../Container/Container.js";
+import OutLink from "../OutLink/OutLink.js";
 
 export default function Portfolio() {
   return (
@@ -7,16 +8,40 @@ export default function Portfolio() {
         <h4 className="portfolio__title">Портфолио</h4>
         <ul className="portfolio__list">
           <li className="portfolio__item">
-            <a href="#y4ycb-y4uTbc9" className="portfolio__link portfolio__link_type_text">Статичный сайт</a>
-            <a href="#y4ycb-y4uTbc9" className="portfolio__link portfolio__link_type_follow">↗</a>
+            <OutLink address="https://github.com/dimanakov/how-to-learn"
+              sectionClass="portfolio__link portfolio__link_type_text"
+              _blank>
+              Статичный сайт
+            </OutLink>
+            <OutLink address="https://github.com/dimanakov/how-to-learn"
+              sectionClass="portfolio__link portfolio__link_type_follow"
+              _blank>
+              &#8599;
+            </OutLink>
           </li>
           <li className="portfolio__item">
-            <a href="#po-rossii" className="portfolio__link portfolio__link_type_text">Адаптивный сайт</a>
-            <a href="#po-rossii" className="portfolio__link portfolio__link_type_follow">↗</a>
+            <OutLink address="https://github.com/dimanakov/russian-travel"
+              sectionClass="portfolio__link portfolio__link_type_text"
+              _blank>
+              Адаптивный сайт
+            </OutLink>
+            <OutLink address="https://github.com/dimanakov/russian-travel"
+              sectionClass="portfolio__link portfolio__link_type_follow"
+              _blank>
+              &#8599;
+            </OutLink>
           </li>
           <li className="portfolio__item">
-            <a href="https://get-mesto.nomoreparties.co" className="portfolio__link portfolio__link_type_text">Одностраничное приложение</a>
-            <a href="https://get-mesto.nomoreparties.co" className="portfolio__link portfolio__link_type_follow">↗</a>
+            <OutLink address="https://get-mesto.nomoreparties.co"
+              sectionClass="portfolio__link portfolio__link_type_text"
+              _blank>
+              Одностраничное приложение
+            </OutLink>
+            <OutLink address="https://get-mesto.nomoreparties.co"
+              sectionClass="portfolio__link portfolio__link_type_follow"
+              _blank>
+              &#8599;
+            </OutLink>
           </li>
         </ul>
       </Container>

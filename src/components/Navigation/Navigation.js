@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import profile from '../../images/profile.svg';
 import Button from '../Button/Button.js';
 
 
@@ -23,30 +22,30 @@ export default function Navigation() {
         <ul className="navigation__menu">
           <li className="navigation__item">
             <NavLink to='/'
-              className="navigation__link"
+              className={({ isActive }) => `navigation__link ${isActive ? "navigation__link_active" : ""}`}
               onClick={handleMenuButton}>
               Главная
             </NavLink>
           </li>
           <li className="navigation__item">
             <NavLink to='/movies'
-              className="navigation__link"
+              className={({ isActive }) => `navigation__link ${isActive ? "navigation__link_active" : ""}`}
               onClick={handleMenuButton}>
               Фильмы
             </NavLink>
           </li>
           <li className="navigation__item">
             <NavLink to='/saved-movies'
-              className="navigation__link"
+              className={({ isActive }) => `navigation__link ${isActive ? "navigation__link_active" : ""}`}
               onClick={handleMenuButton}>
               Сохранённые фильмы
             </NavLink>
           </li>
         </ul>
         <NavLink to='/profile'
-          className='navigation__account'
-          onClick={handleMenuButton}>
-          <img src={profile} className="navigation__profile" alt="профиль" />
+          className='navigation__account navigation__link'
+          onClick={handleMenuButton}
+          aria-label="аккаунт">
         </NavLink>
         <Button sectionClass='navigation__close-button'
           label='закрыть меню'

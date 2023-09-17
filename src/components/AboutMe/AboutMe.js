@@ -1,6 +1,7 @@
 import Container from "../Container/Container.js";
 import SectionTitle from "../SectionTitle/SectionTitle.js";
 import photo from '../../images/about-me__photo.jpg';
+import OutLink from "../OutLink/OutLink.js";
 
 export default function AboutMe() {
   return (
@@ -22,9 +23,11 @@ export default function AboutMe() {
               После того, как прошёл курс по веб-разработке, начал заниматься
               фриланс-заказами и ушёл с постоянной работы.
             </p>
-            <a className="about-me__link" href="https://github.com/dimanakov/dimanakov">
+            <OutLink address="https://github.com/dimanakov/dimanakov"
+              sectionClass="about-me__link"
+              _blank>
               Github
-            </a>
+            </OutLink>
           </div>
         </div>
       </Container>

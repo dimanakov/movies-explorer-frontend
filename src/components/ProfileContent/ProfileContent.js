@@ -17,7 +17,8 @@ export default function ProfileContent({ setIsLoggedIn }) {
     setIsEdit(false);
   }
 
-  function handleExitButton() {
+  function handleExitButton(e) {
+    e.preventDefault();
     setIsLoggedIn(false);
   }
 
