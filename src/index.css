@@ -1,0 +1,54 @@
+/* add normalize */
+@import url('./vendor/normalize.css');
+/* add fonts */
+@import url('./vendor/fonts/fonts.css');
+/* App */
+@import url('./components/App/App.css');
+/* Header */
+@import url('./components/Header/Header.css');
+/* Logo */
+@import url('./components/Logo/Logo.css');
+/* Button */
+@import url('./components/Button/Button.css');
+/* Auth */
+@import url('./components/Auth/Auth.css');
+/* Navigation */
+@import url('./components/Navigation/Navigation.css');
+/* OutLink */
+@import url('./components/OutLink/OutLink.css');
+/* Landing */
+@import url('./components/Landing/Landing.css');
+@import url('./components/Container/Container.css');
+@import url('./components/SectionTitle/SectionTitle.css');
+@import url('./components/SectionSubtitle/SectionSubtitle.css');
+@import url('./components/Paragraph/Paragraph.css');
+@import url('./components/Promo/Promo.css');
+@import url('./components/NavTab/NavTab.css');
+@import url('./components/AboutProject/AboutProject.css');
+@import url('./components/Techs/Techs.css');
+@import url('./components/AboutMe/AboutMe.css');
+@import url('./components/Portfolio/Portfolio.css');
+/* Footer */
+@import url('./components/Footer/Footer.css');
+/* Movies */
+@import url('./components/Movies/Movies.css');
+@import url('./components/SearchForm/SearchForm.css');
+@import url('./components/FilterCheckbox/FilterCheckbox.css');
+@import url('./components/Preloader/Preloader.css');
+@import url('./components/MoviesCardList/MoviesCardList.css');
+@import url('./components/MoviesCard/MoviesCard.css');
+@import url('./components/ShowMore/ShowMore.css');
+/* SavedMovies */
+@import url('./components/SavedMovies/SavedMovies.css');
+/* Profile */
+@import url('./components/Profile/Profile.css');
+@import url('./components/ProfileContent/ProfileContent.css');
+/* SignWithForm */
+@import url('./components/SignWithForm/SignWithForm.css');
+/* InputLine */
+@import url('./components/InputLine/InputLine.css');
+/* Register */
+@import url('./components/Register/Register.css');
+@import url('./components/Login/Login.css');
+/* PageNotFound */
+@import url('./components/PageNotFound/PageNotFound.css');

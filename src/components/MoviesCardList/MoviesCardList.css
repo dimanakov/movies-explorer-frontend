@@ -1,0 +1,41 @@
+.movies {
+  background-color: #FAFAFA;
+  display: flex;
+  justify-content: center;
+}
+
+.movies__container {
+  max-width: 1140px;
+  margin: 0 70px;
+}
+
+.movies__gallery {
+  padding: 0;
+  margin: 70px auto 30px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  list-style: none;
+  gap: 32px 20px;
+}
+
+@media (max-width: 1220px) {
+  .movies__container {
+    margin: 0 30px;
+  }
+
+  .movies__gallery {
+    gap: 36px 30px;
+  }
+}
+
+@media (max-width: 725px) {
+  .movies__container {
+    margin: 0 10px;
+  }
+
+  .movies__gallery {
+    margin: 40px auto 30px;
+    gap: 20px;
+  }
+}
