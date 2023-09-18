@@ -26,8 +26,8 @@ export default function AboutProject() {
         <ul className="about-project__syllabus">
           <li className="about-project__item about-project__item_color_blue">1 неделя</li>
           <li className="about-project__item about-project__item_color_gray">4 недели</li>
-          <li className="about-project__item about-project__item__text">Back-end</li>
-          <li className="about-project__item about-project__item__text">Front-end</li>
+          <li className="about-project__item about-project__item_text">Back-end</li>
+          <li className="about-project__item about-project__item_text">Front-end</li>
         </ul>
       </Container>
     </section>

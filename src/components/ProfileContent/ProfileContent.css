@@ -53,12 +53,17 @@
 .profile-content__input {
   text-align: right;
   background-color: inherit;
-  border: none;
-  outline: none;
   padding: 0;
   margin: 0;
   max-width: 300px;
   width: 100%;
+  border: none;
+  transition: border .3s ease-in-out;
+}
+
+.profile-content__input:focus {
+  outline: 1px solid #aaa;
+  border-bottom: 1px solid #3456F6;
 }
 
 .profile-content__error {
@@ -132,11 +137,11 @@
     margin-bottom: 10vh;
   }
 
-    .profile-content__group_type_save {
-      margin-top: 22.4vh;
-    }
-  
-    .profile-content__group_type_edit {
+  .profile-content__group_type_save {
+    margin-top: 22.4vh;
+  }
+
+  .profile-content__group_type_edit {
     margin-top: 28.7vh;
-    }
+  }
 }

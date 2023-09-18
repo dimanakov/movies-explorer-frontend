@@ -24,14 +24,13 @@ export default function SearchForm({ onSubmit }) {
             placeholder="Фильм"
             autoComplete="on"
             required />
-          <span className={`name-input-error form__input-error`}></span>
           <Button buttonType="submit"
             sectionClass='search-form__submit'
             lable='submit'
             disabled='false'></Button>
         </form>
         <div className="search-form__border"></div>
-        <FilterCheckbox sectionClass="search-form__box"/>
+        <FilterCheckbox sectionClass="search-form__box" />
       </Container>
     </section>
   )

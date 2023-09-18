@@ -10,7 +10,7 @@ import Footer from '../Footer/Footer.js';
 export default function Landing() {
   return (
     <main>
-      <Header sectionClass='landing__header'/>
+      <Header sectionClass='header'/>
       <Promo />
       <NavTab />
       <AboutProject />
