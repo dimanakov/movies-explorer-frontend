@@ -18,27 +18,35 @@ export default function MoviesCard({ movie }) {
 
   return (
     <li className="movies-card">
-      <img className="movies-card__image"
-        src={baseUrl + movie.image.url}
-        alt={movie.nameRU} />
-      <div className="movies-card__footer">
-        <div className="movies-card__group">
-          <h2 className="movies-card__heading">{movie.nameRU}</h2>
-          {location.pathname === "/movies" &&
-          <Button sectionClass={`movies-card__save-button ${isSaved ? 'movies-card__save-button_active' : 'movies-card__save-button_off'}`}
-            type="button"
-            aria-label="сохранить"
-            handleClick={handleSaveClick}
-          ></Button>}
-          {location.pathname === "/saved-movies" &&
-            <Button sectionClass="movies-card__remove-button"
-              type="button"
-              aria-label="удалить"
-              handleClick={handleSaveClick}
-            ></Button>}
+      <a href={movie.trailerLink}
+        className="movies-card__link"
+        rel="noopener noreferrer"
+        target="_blank">
+        <img className="movies-card__image"
+          src={baseUrl + movie.image.url}
+          alt={movie.nameRU} />
+        <div className="movies-card__footer">
+          <div className="movies-card__group">
+            <h2 className="movies-card__heading">{movie.nameRU}</h2>
+          </div>
+          <p className="movies-card__duration">{`${hours}ч${minuts}м`}</p>
         </div>
-        <p className="movies-card__duration">{`${hours}ч${minuts}м`}</p>
-      </div>
+      </a>
+      {location.pathname === "/movies" &&
+        <Button sectionClass={`movies-card__save-button
+              ${isSaved
+            ? 'movies-card__save-button_active'
+            : 'movies-card__save-button_off'}`}
+          type="button"
+          aria-label="сохранить"
+          handleClick={handleSaveClick}
+        ></Button>}
+      {location.pathname === "/saved-movies" &&
+        <Button sectionClass="movies-card__remove-button"
+          type="button"
+          aria-label="удалить"
+          handleClick={handleSaveClick}
+        ></Button>}
     </li>
   )
 }
