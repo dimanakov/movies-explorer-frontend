@@ -1,12 +1,17 @@
 import { useState } from 'react';
+import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { LoggedInContext } from '../../Context/LoggedInContext.js';
 import Button from '../Button/Button.js';
 import useFormAndValidation from '../../hooks/useFormAndValidations.js';
 
-export default function ProfileContent({ setIsLoggedIn }) {
+export default function ProfileContent() {
 
+  const navigate = useNavigate();
   const currentUser = 'Дмитрий';
   const [isEdit, setIsEdit] = useState(false);
-  const { values, handleChange, errors, isValid, setValues, setErrors } = useFormAndValidation({});
+  const { values, handleChange, errors } = useFormAndValidation({});
+  const { setLoggedIn } = useContext(LoggedInContext);
 
   function handleEditButton() {
     setIsEdit(true);
@@ -19,7 +24,8 @@ export default function ProfileContent({ setIsLoggedIn }) {
 
   function handleExitButton(e) {
     e.preventDefault();
-    setIsLoggedIn(false);
+    setLoggedIn(false);
+    navigate('/signin', { replace: true });
   }
 
   return (

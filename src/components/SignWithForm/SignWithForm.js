@@ -1,24 +1,35 @@
 import Logo from '../Logo/Logo.js';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { SignContext } from '../../Context/SignContext.js';
+import { LoggedInContext } from '../../Context/LoggedInContext.js';
 
 export default function SignWithForm({ formName, title, children, buttonText }) {
-
-  const { isValid } = useContext(SignContext);
+  
+  const navigate = useNavigate();
   const location = useLocation();
+  const { isValid } = useContext(SignContext);
+  const { setLoggedIn } = useContext(LoggedInContext);
+
+  function handleSubmit(e) {
+    console.log('submit');
+    e.preventDefault();
+    setLoggedIn(true);
+    navigate('/movies', { replace: true });
+  }
 
   return (
     <section className="sign-with-form">
       <Logo sectionClass="sign-with-form__logo" />
       <h1 className="sign-with-form__title">{title}</h1>
       <form className="form"
-        name={formName}>
+        name={formName}
+        onSubmit={handleSubmit}>
         {children}
         <button type="submit"
           className={`button button_focus sign-with-form__submit 
           ${isValid ? '' : 'sign-with-form__submit_inactive'}`}
-          disabled={isValid}>
+          disabled={!isValid}>
           {buttonText}
         </button>
       </form>
