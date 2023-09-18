@@ -9,15 +9,17 @@ import Footer from '../Footer/Footer.js';
 
 export default function Landing() {
   return (
-    <main>
-      <Header sectionClass='header'/>
-      <Promo />
-      <NavTab />
-      <AboutProject />
-      <Techs />
-      <AboutMe />
-      <Portfolio />
+    <div className="landing">
+      <Header sectionClass="landing__header" />
+      <main>
+        <Promo />
+        <NavTab />
+        <AboutProject />
+        <Techs />
+        <AboutMe />
+        <Portfolio />
+      </main>
       <Footer />
-    </main>
+    </div>
   );
 }

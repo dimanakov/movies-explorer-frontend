@@ -5,18 +5,20 @@ import SearchForm from "../SearchForm/SearchForm";
 import presetMoviesList from '../../utils/presetMoviesCount.js';
 import movies from "../../utils/movies.js";
 
-export default function SavedMovies(){
+export default function SavedMovies() {
 
   function handleSubmitSearchMovies() {
 
   }
 
-  return(
-    <main className="saved-movies">
-      <Header sectionClass="saved-movies__header"/>
-      <SearchForm onSubmit={handleSubmitSearchMovies} />
-      <MoviesCardList movies={movies} presetMovies={presetMoviesList} />
+  return (
+    <div className="saved-movies">
+      <Header sectionClass="saved-movies__header" />
+      <main>
+        <SearchForm onSubmit={handleSubmitSearchMovies} />
+        <MoviesCardList movies={movies} presetMovies={presetMoviesList} />
+      </main>
       <Footer />
-    </main>
+    </div>
   )
 }

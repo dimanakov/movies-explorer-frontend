@@ -1,22 +1,24 @@
 .search-form {
   background-color: #fafafa;
-  display: flex;
-  justify-content: center;
 }
 
 .search-form__container {
-  margin: 70px 70px 80px;
   max-width: 1140px;
-  width: 100%;
+  margin: 70px auto 10px;
+  border-bottom: 1px solid #E8E8E8;
+}
+
+.search-form__search-box {
   display: flex;
-  background-color: #fff;
   border-radius: 9px;
+  background-color: #fff;
+  margin: 0 0 69px;
   box-shadow: 0px 3px 14px 0px rgba(0, 0, 0, 0.08);
 }
 
 .search-form__form {
-  width: 100%;
   display: flex;
+  flex-grow: 1;
   align-items: center;
 }
 
@@ -28,7 +30,7 @@
 }
 
 .search-form__input {
-  flex-grow: 1;
+  width: 100%;
   font-feature-settings: 'clig' off, 'liga' off;
   font-size: 18px;
   font-style: normal;
@@ -59,7 +61,7 @@
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  width: 34px;
+  min-width: 34px;
   height: 34px;
   border: none;
   padding: 0;
@@ -71,13 +73,17 @@
   border-left: 1px solid #CBCBCB;
 }
 
-.search-form__box {
+.search-form__checkbox {
   margin-right: 30px;
 }
 
 @media (max-width: 1220px) {
   .search-form__container {
-    margin: 80px 30px 120px;
+    margin: 80px 30px 10px;
+  }
+
+  .search-form__search-box {
+    margin: 0 0 109px;
   }
 
   .search-form__border {
@@ -88,26 +94,26 @@
 @media (max-width: 725px) {
   .search-form__container {
     margin: 80px 10px 10px;
-    flex-direction: column;
-    align-items: center;
     background-color: #fafafa;
     border-radius: none;
-    box-shadow: none;
-    padding-bottom: 45px;
     border-bottom: 1px solid #E8E8E8;
+  }
+
+  .search-form__search-box {
+    display: block;
+    border-radius: 0;
+    margin: 0;
+    background-color: #fafafa;
+    box-shadow: none;
   }
 
   .search-form__form {
     border-radius: 9px;
     background: #FFF;
     box-shadow: 0px 3px 14px 0px rgba(0, 0, 0, 0.08);
-    margin-left: 10px;
-    margin-right: 10px;
   }
 
   .search-form__input {
-    width: 70%;
-    min-width: 40px;
     margin: 25px 0 25px 19px;
   }
 
@@ -119,8 +125,10 @@
     font-size: 14px;
   }
 
-  .search-form__box {
-    margin-top: 45px;
+  .search-form__checkbox {
+    display: flex;
+    justify-content: center;
+    margin: 45px 0;
   }
 
   .search-form__icon {

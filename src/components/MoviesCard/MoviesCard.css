@@ -63,6 +63,7 @@
   padding: 0;
   bottom: 37px;
   right: 12px;
+  box-shadow: 0px 0px 16px 6px rgba(0, 0, 0, 0.1);
 }
 
 .movies-card__save-button_off {
@@ -87,6 +88,7 @@
   height: 16px;
   padding: 0;
   border: none;
+  box-shadow: 0px 0px 16px 6px rgba(0, 0, 0, 0.1);
 }
 
 @media (max-width: 1220px) {
