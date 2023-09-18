@@ -21,6 +21,7 @@ export default function Register() {
     <SignContext.Provider value={{ values, handleChange, errors, isValid, setValues, setErrors }}>
       <main className='register'>
         <SignWithForm formName="register"
+        sectionClass="register__error"
           title="Добро пожаловать!"
           onSubmit={handleSubmit}
           buttonText="Зарегистрироваться">

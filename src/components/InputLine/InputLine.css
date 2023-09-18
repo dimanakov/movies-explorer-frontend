@@ -36,6 +36,12 @@
   margin-bottom: 6px;
 }
 
-.input-line__error_active{
+.input-line__error_active {
   visibility: visible;
+}
+
+@media (max-width: 725px) {
+  .input-line__input {
+    width: 260px;
+  }
 }

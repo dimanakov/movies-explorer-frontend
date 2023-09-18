@@ -3,10 +3,11 @@
   flex-direction: column;
   max-width: 396px;
   margin: 0 auto;
+  height: 100vh;
 }
 
 .sign-with-form__logo {
-  margin-top: 70px;
+  margin-top: 10vh;
 }
 
 .sign-with-form__title {
@@ -14,8 +15,22 @@
   font-size: 24px;
   font-weight: 500;
   line-height: normal;
-  text-align: center;
   margin: 40px 0;
+}
+
+.sign-with-form__error {
+  display: block;
+  visibility: hidden;
+  color: #FF004C;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: normal;
+  min-height: 14px;
+}
+
+.sign-with-form__error_active {
+  visibility: visible;
 }
 
 .sign-with-form__submit {
@@ -23,14 +38,17 @@
   color: #fff;
   border-radius: 3px;
   margin-top: 20px;
+  border: none;
   padding: 13px 0 16px;
   width: 100%;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: normal;
 }
 
 .sign-with-form__submit_inactive {
-  color: #000;
-  background: #fff;
-  border: 1px solid #000;
+  color: #fff;
+  background-color: #3456F3;
   pointer-events: none;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -57,4 +75,34 @@
 
 .sign-with-form__link:hover {
   opacity: .6;
+}
+
+@media (max-width: 1220px) {
+  .sign-with-form__logo {
+    margin-top: 22.6vh;
+  }
+}
+
+@media (max-width: 725px) {
+  .sign-with-form {
+    max-width: 260px;
+    align-items: center;
+  }
+
+  .sign-with-form__logo {
+    margin-top: 7.2vh;
+  }
+
+  .sign-with-form__title {
+    margin: 50px 0 80px;
+  }
+
+  .sign-with-form__submit {
+    font-size: 12px;
+  }
+
+  .sign-with-form__question {
+    font-size: 12px;
+    margin-top: 14px;
+  }
 }

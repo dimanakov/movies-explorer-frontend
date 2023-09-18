@@ -2,3 +2,19 @@
   background-color: #fafafa;
   height: 100vh;
 }
+
+.login__error {
+  margin-top: 33vh;
+}
+
+@media (max-width: 1220px) {
+  .login__error {
+    margin-top: 20.2vh;
+  }
+}
+
+@media (max-width: 725px) {
+  .login__error {
+    margin-top: 31vh;
+  }
+}

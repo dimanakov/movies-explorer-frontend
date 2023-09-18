@@ -21,6 +21,7 @@ export default function Login() {
     <SignContext.Provider value={{ values, handleChange, errors, isValid, setValues, setErrors }}>
       <main className='login'>
         <SignWithForm formName="login"
+          sectionClass="login__error"
           title="Рады видеть!"
           onSubmit={handleSubmit}
           buttonText="Войти">
