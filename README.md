@@ -27,6 +27,6 @@
 
 ### Ссылки на проект
 
-Используемый макет: light-3.
+Используемый макет: light-3
 
 Адрес репозитория: https://github.com/dimanakov/movies-explorer-frontend
