@@ -1,7 +1,7 @@
-import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
-import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import SearchForm from "../SearchForm/SearchForm";
+import MoviesCardList from "../MoviesCardList/MoviesCardList";
+import Footer from "../Footer/Footer";
 import presetMoviesList from '../../utils/presetMoviesCount.js';
 import movies from "../../utils/movies.js";
 

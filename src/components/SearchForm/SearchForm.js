@@ -1,12 +1,22 @@
+import { useContext } from 'react';
 import Container from "../Container/Container"
 import icon from '../../images/search-icon.svg';
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
+import { MoviesContext } from '../../Context/MoviesContext.js';
 
-export default function SearchForm({ onSubmit }) {
+export default function SearchForm() {
+
+  const {
+    searchValue, checkIsShort, findMovies, handleSearchString
+  } = useContext(MoviesContext);
+
+  function handleChange(e) {
+    handleSearchString(e);
+  }
 
   function handleSubmit(e) {
-    e.prevenDefault();
-    onSubmit();
+    e.preventDefault();
+    findMovies();
   }
 
   return (
@@ -19,17 +29,20 @@ export default function SearchForm({ onSubmit }) {
               className="search-form__icon"
               alt="icon" />
             <input className="search-form__input"
+              name="search"
+              value={searchValue}
+              onChange={handleChange}
               type="text"
               aria-label="search-form"
               placeholder="Фильм"
-              autoComplete="on"
-              required />
+              autoComplete="on" />
             <button type="submit"
-              className="search-form__submit"
+              className="button button_focus search-form__submit"
               aria-label="submit"></button>
           </form>
           <div className="search-form__border"></div>
-          <FilterCheckbox sectionClass="search-form__checkbox" />
+          <FilterCheckbox sectionClass="search-form__checkbox"
+            check={checkIsShort} />
         </div>
       </Container>
     </section>

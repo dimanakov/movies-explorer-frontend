@@ -16,7 +16,7 @@ export default function Navigation() {
     <div className="navigation">
       <Button sectionClass='navigation__burger-button'
         label='открыть меню'
-        handleClick={handleMenuButton}>
+        onClick={handleMenuButton}>
       </Button>
       <nav className={`navigation__navbar ${menu ? 'navigation__navbar_active' : ''}`}>
         <ul className="navigation__menu">
@@ -49,7 +49,7 @@ export default function Navigation() {
         </NavLink>
         <Button sectionClass='navigation__close-button'
           label='закрыть меню'
-          handleClick={handleMenuButton}>
+          onClick={handleMenuButton}>
         </Button>
       </nav>
     </div>
