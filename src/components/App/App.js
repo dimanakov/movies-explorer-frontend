@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import Landing from '../Landing/Landing.js';
 import Movies from '../Movies/Movies.js';
-import PageNotFound from '../PageNotFound/PageNotFound.js';
 import SavedMovies from '../SavedMovies/SavedMovies.js';
 import Profile from '../Profile/Profile.js';
+import PageNotFound from '../PageNotFound/PageNotFound.js';
 import Register from '../Register/Register.js';
 import Login from '../Login/Login.js';
 import { AppContext } from '../../Context/AppContext.js';
@@ -16,35 +16,21 @@ export default function App() {
 
   const location = useLocation();
   const navigate = useNavigate();
-
+  // проверка токена
   const { getUserAuth } = Auth({});
   const token = localStorage.getItem('jwt') || '';
+  // стейты состояний
   const [isLoading, setIsLoading] = useState(false);
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  // стейты данных о пользователе
   const [currentUser, setCurrentUser] = useState({});
   const [userMovies, setUserMovies] = useState([]);
-
+  // обработчик ошибок регистрации/авторизации
   function handleErrorPage(obj, errorPage) {
     const { errorCodePage, errorPageMessage } = errorPage;
     const { statusCode, message } = obj;
     setErrorMessage((statusCode === errorCodePage ? message : errorPageMessage));
-  }
-
-  //проверка токена
-  function checkToken() {
-    if (token) {
-      getUserAuth(token)
-        .then((res) => {
-          setLoggedIn(true);
-          navigate(location.pathname);
-        })
-        .catch((err) => { //попадаем сюда если один из промисов завершится ошибкой 
-          setLoggedIn(false);
-          navigate('/', { replace: true });
-          console.error(err);
-        })
-    }
   }
 
   // получаем данные пользователя
@@ -64,6 +50,22 @@ export default function App() {
       });
   }
 
+  //проверка токена
+  function checkToken() {
+    if (token) {
+      getUserAuth(token)
+        .then((res) => {
+          setLoggedIn(true);
+          navigate(location.pathname);
+        })
+        .catch((err) => { //попадаем сюда если один из промисов завершится ошибкой 
+          setLoggedIn(false);
+          navigate('/', { replace: true });
+          console.error(err);
+        })
+    }
+  }
+
   // проверка токена пользователя
   useEffect(() => {
     checkToken();
@@ -78,15 +80,15 @@ export default function App() {
       isLoggedIn, setLoggedIn,
       isLoading, setIsLoading,
       currentUser, setCurrentUser,
+      userMovies, setUserMovies,
       errorMessage, setErrorMessage,
-      handleErrorPage,
-      userMovies, setUserMovies
+      handleErrorPage
     }}>
       <div className="page">
         <Routes>
           <Route path='/' element={<Landing />} />
           <Route path='/movies' element={<ProtectedRoute element={Movies} />} />
-          <Route path='/saved-movies' element={<ProtectedRoute element={Movies} />} />
+          {/* <Route path='/saved-movies' element={<ProtectedRoute element={SavedMovies} />} /> */}
           <Route path='/profile' element={<ProtectedRoute element={Profile} />} />
           <Route path="/signin" element={<Login />} />
           <Route path="/signup" element={<Register />} />

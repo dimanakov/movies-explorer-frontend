@@ -12,7 +12,7 @@ import api from '../../utils/MainApi.js';
 // import searchMovieEngine from '../../utils/searchMovieEngine.js';
 
 export default function Movies() {
-  const { setIsLoading, handleErrorPage, setErrorMessage, userMovies, setUserMovies } = useContext(AppContext);
+  const { setIsLoading, setLoggedIn, setCurrentUser, handleErrorPage, setErrorMessage, isLoggedIn, userMovies, setUserMovies } = useContext(AppContext);
 
   // сервер с изображениями фильмов
   const baseUrl = 'https://api.nomoreparties.co/';
@@ -45,6 +45,7 @@ export default function Movies() {
   function handleSearchString(e) {
     const stringValue = e.target.value.toLowerCase();
     setSearchValue(stringValue);
+    // localStorage.setItem('searchString', stringValue);
   }
 
   // проверка состояния чекбокса
@@ -62,9 +63,7 @@ export default function Movies() {
         setAllMovies(dataMovies);
         localStorage.setItem('films', JSON.stringify(dataMovies));
         setIsError(false);
-        const filteredMoviesList = findMovies(dataMovies);
-        setFilteredMovies(filteredMoviesList);
-        localStorage.setItem('searchedFilms', JSON.stringify(filteredMoviesList));
+        searchMoviesEngine(dataMovies, isShort);
       })
       .catch((err) => {
         console.error(err);
@@ -77,23 +76,49 @@ export default function Movies() {
       })
   }
 
-  function findMovies(rawMovies) {
-    return rawMovies.filter((movie) => {
-      return movie.nameRU.toLowerCase().includes(searchValue) || movie.nameEN.toLowerCase().includes(searchValue)
-    })
+  // обработка текста ошибки поискового запроса
+  function handleErrorMessage() {
+    setSearchMessage(searchValue ? resultMessage.findNothing : resultMessage.emptySearch);
   }
 
-  function handleSearchSubmit() {
+  // фильтрация фильмов по поисковому запросу
+  function searchMoviesEngine(rawMovies) {
+    localStorage.setItem('searchString', searchValue);
+    // setIsShort(localStorage.getItem('isShort'));
+    // setSearchValue(localStorage.getItem('searchString'));
+    // поисковый фильтр
+    const filteredMoviesList = rawMovies.filter((movie) => {
+      const search = (movie.nameRU.toLowerCase().includes(searchValue)
+        || movie.nameEN.toLowerCase().includes(searchValue));
+      return search;
+      // const search = isShort
+      //   ? ((movie.nameRU.toLowerCase().includes(searchValue) && (movie.duration <= 40))
+      //     || (movie.nameEN.toLowerCase().includes(searchValue) && (movie.duration <= 40)))
+      //   : (movie.nameRU.toLowerCase().includes(searchValue)
+      //     || movie.nameEN.toLowerCase().includes(searchValue));
+      // return search;
+    })
+    // если ничего не найдено по запросу
+    if (filteredMoviesList.length === 0) {
+      // показываем ошибку
+      setIsCorrectSearch(false);
+    }
+    // записываем найденные фильмы в стейт и в локальное хранилище
+    setFilteredMovies(filteredMoviesList);
+    localStorage.setItem('searchedFilms', JSON.stringify(filteredMoviesList));
+  }
+
+  // submit формы поиска
+  function findMovies() {
     // пустой запрос
     if (!searchValue) {
       // показать ошибку 
       setEmptySearchError(resultMessage.emptySearch);
       return;
     }
-    // записываем в localStorage поисковый запрос
-    localStorage.setItem('searchString', searchValue);
     // не показывать ошибку
     setEmptySearchError('');
+    setIsCorrectSearch(true);
     // проверяем начальный список фильмов в стейте
     if (allMovies.length === 0) {
       //отправляем запрос на сервер
@@ -101,77 +126,20 @@ export default function Movies() {
       return;
     }
     // предустанавливаем текст ошибки "ничего не найдено"
-    // handleErrorMessage();
-    const filteredMoviesList = findMovies(allMovies);
-    setFilteredMovies(filteredMoviesList);
-    localStorage.setItem('searchedFilms', JSON.stringify(filteredMoviesList));
+    handleErrorMessage();
+    // есть изначальный список фильмов, запускаем поиск
+    searchMoviesEngine(allMovies, isShort);
   }
 
-  function handleFilterShorts(movies) {
-    if (isShort) {
-      return movies.filter((movie) => {
-        return movie.duration <= 40
-      })
-    }
-    return movies;
+  function handleFilterIsShort() {
+    setIsShort()
+    const shortMovies = localStorageFilteredMovies.filter((movie) => {
+      return movie.duration <= 40
+    })
+    setFilteredMovies(shortMovies);
   }
 
-  // обработка текста ошибки поискового запроса
-  // function handleErrorMessage() {
-  //   setSearchMessage(searchValue ? resultMessage.findNothing : resultMessage.emptySearch);
-  // }
-
-  // // фильтрация фильмов по поисковому запросу
-  // function searchMoviesEngine(rawMovies) {
-  //   localStorage.setItem('searchString', searchValue);
-  //   // setIsShort(localStorage.getItem('isShort'));
-  //   // setSearchValue(localStorage.getItem('searchString'));
-  //   // поисковый фильтр
-  //   const filteredMoviesList = rawMovies.filter((movie) => {
-  //     const search = (movie.nameRU.toLowerCase().includes(searchValue)
-  //       || movie.nameEN.toLowerCase().includes(searchValue));
-  //     return search;
-  //     // const search = isShort
-  //     //   ? ((movie.nameRU.toLowerCase().includes(searchValue) && (movie.duration <= 40))
-  //     //     || (movie.nameEN.toLowerCase().includes(searchValue) && (movie.duration <= 40)))
-  //     //   : (movie.nameRU.toLowerCase().includes(searchValue)
-  //     //     || movie.nameEN.toLowerCase().includes(searchValue));
-  //     // return search;
-  //   })
-  //   // если ничего не найдено по запросу
-  //   if (filteredMoviesList.length === 0) {
-  //     // показываем ошибку
-  //     setIsCorrectSearch(false);
-  //   }
-  //   // записываем найденные фильмы в стейт и в локальное хранилище
-  //   setFilteredMovies(filteredMoviesList);
-  //   localStorage.setItem('searchedFilms', JSON.stringify(filteredMoviesList));
-  // }
-
-  // // submit формы поиска
-  // function findMovies() {
-  //   // пустой запрос
-  //   if (!searchValue) {
-  //     // показать ошибку 
-  //     setEmptySearchError(resultMessage.emptySearch);
-  //     return;
-  //   }
-  //   // не показывать ошибку
-  //   setEmptySearchError('');
-  //   setIsCorrectSearch(true);
-  //   // проверяем начальный список фильмов в стейте
-  //   if (allMovies.length === 0) {
-  //     //отправляем запрос на сервер
-  //     getFilms();
-  //     return;
-  //   }
-  //   // предустанавливаем текст ошибки "ничего не найдено"
-  //   handleErrorMessage();
-  //   // есть изначальный список фильмов, запускаем поиск
-  //   searchMoviesEngine(allMovies, isShort);
-  // }
-
-  ///////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////
   // обработка взаимодействия пользователя с фильмами
 
   // проверяем наличие фильма в сохранённых
@@ -204,6 +172,26 @@ export default function Movies() {
       })
   }
 
+  // function handleCardLike(card) {
+  //   // Снова проверяем, есть ли уже лайк на этой карточке
+  //   const isLiked = card.likes.some(i => i._id === currentUser._id);
+  //   // Отправляем запрос в API и получаем обновлённые данные карточки
+  //   api.changeLikeCardStatus(card, !isLiked)
+  //     .then((newCard) => {
+  //       setCardsData((cards) => cards.map((c) => c._id === card._id ? newCard : c));
+  //     })
+  //     .catch((err) => {             //попадаем сюда если промис завершится ошибкой 
+  //       console.error(err);
+  //     });
+  // }
+
+  useEffect(() => {
+    setIsCorrectSearch(true);
+    setIsShort(JSON.parse(localStorage.getItem('isShort')));
+    setFilteredMovies(localStorageFilteredMovies);
+    handleFilterIsShort();
+  }, [isShort])
+
   return (
     <MoviesContext.Provider value={{
       searchValue, setSearchValue,
@@ -211,13 +199,12 @@ export default function Movies() {
       checkIsShort,
       // submit search
       findMovies,
-      handleSearchSubmit,
       // текст ошибки при поиске
       searchMessage,
       // текст ошибки при пустом поисковом запросе
       emptySearchError,
       // для рендера фильмов
-      // searchMoviesEngine,
+      searchMoviesEngine,
       isCorrectSearch, setIsCorrectSearch,
       allMovies, setAllMovies,
       filteredMovies, setFilteredMovies,
@@ -239,7 +226,7 @@ export default function Movies() {
           {/* список фильмов и кнока ShowMore появятся после поискового запроса */}
 
           <MoviesCardList presetMovies={presetMoviesList}
-            movies={handleFilterShorts(filteredMovies)} />
+            movies={filteredMovies} />
         </main>
         <Footer />
       </div>

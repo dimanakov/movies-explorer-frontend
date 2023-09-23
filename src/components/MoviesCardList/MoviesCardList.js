@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import Container from "../Container/Container.js";
 import MoviesCard from "../MoviesCard/MoviesCard.js";
 import ShowMore from '../ShowMore/ShowMore.js';
@@ -6,14 +6,24 @@ import Preloader from '../Preloader/Preloader.js';
 import { AppContext } from "../../Context/AppContext.js";
 import { MoviesContext } from '../../Context/MoviesContext.js';
 
-export default function MoviesCardList({ presetMovies }) {
+export default function MoviesCardList({ presetMovies, movies }) {
 
-  const { isCorrectSearch, filteredMovies, searchMessage, isError, filterCheckbox } = useContext(MoviesContext);
+  const { isCorrectSearch, setIsShort, filteredMovies, searchMessage, setIsCorrectSearch, filterCheckbox, setFilteredMovies, searchMoviesEngine, allMovies } = useContext(MoviesContext);
   const { isLoading } = useContext(AppContext);
 
-// под вопросом
+  // function renderMovies(){
+  //   searchMoviesEngine(filteredMovies);
+  // }
+
+  // под вопросом
   const { initMoviesCount } = presetMovies();
   const [moviesLeft, setMoviesLeft] = useState();
+
+  // useEffect(() => {
+  //   setIsCorrectSearch(true);
+  //   setFilteredMovies(JSON.parse(localStorage.getItem('searchedFilms')));
+  //   // searchMoviesEngine(allMovies);
+  // }, [])
 
   return (
     <section className="movies-card-list">
@@ -22,7 +32,7 @@ export default function MoviesCardList({ presetMovies }) {
         {!isCorrectSearch && <p className={`movies-card-list__error movies-card-list__error_active`}>{searchMessage}</p>}
         {/* место для карточек фильмов */}
         {isCorrectSearch && <ul className="movies-card-list__gallery">
-          {filteredMovies.slice(0, initMoviesCount).map((movie) => {
+          {movies.map((movie) => {
             // setIsSaved(false);
             return (
               <MoviesCard

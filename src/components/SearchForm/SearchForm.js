@@ -7,7 +7,7 @@ import { MoviesContext } from '../../Context/MoviesContext.js';
 export default function SearchForm() {
 
   const {
-    searchValue, checkIsShort, findMovies, handleSearchString
+    searchValue, checkIsShort, findMovies, handleSearchSubmit, handleSearchString, isShort, emptySearchError
   } = useContext(MoviesContext);
 
   function handleChange(e) {
@@ -16,7 +16,8 @@ export default function SearchForm() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    findMovies();
+    handleSearchSubmit();
+    // findMovies();
   }
 
   return (
@@ -42,8 +43,10 @@ export default function SearchForm() {
           </form>
           <div className="search-form__border"></div>
           <FilterCheckbox sectionClass="search-form__checkbox"
-            check={checkIsShort} />
+            onChange={checkIsShort}
+            checked={isShort} />
         </div>
+        <span className="search-form__error">{emptySearchError}</span>
       </Container>
     </section>
   )
