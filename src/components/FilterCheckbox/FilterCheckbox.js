@@ -1,16 +1,21 @@
-import { useContext } from "react";
-import { MoviesContext } from '../../Context/MoviesContext.js';
+// import { useContext } from "react";
+// import { MoviesContext } from '../../Context/MoviesContext.js';
+import searchEngine from '../../utils/SearchEngine.js';
 
-export default function FilterCheckbox({ sectionClass, onChange, checked }) {
+export default function FilterCheckbox({ sectionClass, lsNameisShort }) {
 
-  const { isShort, checkIsShort } = useContext(MoviesContext);
-  const short = JSON.parse(localStorage.getItem('isShort'));
+  const { checkIsShort } = searchEngine({});
 
+  function handleChange(e) {
+    checkIsShort(e, lsNameisShort);
+  }
+  
+  const short = JSON.parse(localStorage.getItem(lsNameisShort)) || false;
 
   return (
     <label className={`filter-checkbox ${sectionClass}`}>
       <input type='checkbox'
-        onChange={checkIsShort}
+        onChange={handleChange}
         checked={short}
         className="filter-checkbox__input"
         name="filter-checkbox" />

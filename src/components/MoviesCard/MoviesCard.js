@@ -1,15 +1,25 @@
-import { useContext, useEffect, useState } from "react";
-import { AppContext } from "../../Context/AppContext.js";
-import { MoviesContext } from '../../Context/MoviesContext.js';
+import { useContext } from "react";
 import { useLocation } from "react-router-dom";
 import Button from "../Button/Button";
+import searchEngine from '../../utils/SearchEngine.js';
+import { AppContext } from "../../Context/AppContext.js";
 
-export default function MoviesCard({ movie }) {
+export default function MoviesCard({ movie, saveMovie, removeMovie }) {
 
+  const { baseUrl } = searchEngine({});
   const { userMovies } = useContext(AppContext);
-  const { baseUrl, saveMovie, removeMovie, isFavorit } = useContext(MoviesContext);
+
+  // проверяем наличие фильма в сохранённых
+  function isFavorit(movie) {
+    return userMovies.some((m) => {
+      return m.movieId === movie.id;
+    })
+  };
+  
   // определяем страницу на которой находимся
   const location = useLocation();
+
+  const url = location.pathname === '/movies' ? baseUrl + movie.image.url : movie.image;
   // длительность фильма в часах и минутах
   const hours = Math.floor(movie.duration / 60);
   const minuts = movie.duration % 60;
@@ -25,7 +35,7 @@ export default function MoviesCard({ movie }) {
     isSavedMovie ? removeMovie(movie) : saveMovie(movie);
   }
 
-// удалить фильм из избранных на странице /saved-movies
+  // удалить фильм из избранных на странице /saved-movies
   function handleRemoveClick() {
     removeMovie(movie);
   }
@@ -37,7 +47,7 @@ export default function MoviesCard({ movie }) {
         rel="noopener noreferrer"
         target="_blank">
         <img className="movies-card__image"
-          src={baseUrl + movie.image.url}
+          src={url}
           alt={movie.nameRU} />
         <div className="movies-card__footer">
           <div className="movies-card__group">

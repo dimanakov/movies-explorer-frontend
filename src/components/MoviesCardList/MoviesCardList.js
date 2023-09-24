@@ -1,46 +1,41 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext } from "react";
 import Container from "../Container/Container.js";
 import MoviesCard from "../MoviesCard/MoviesCard.js";
 import ShowMore from '../ShowMore/ShowMore.js';
 import Preloader from '../Preloader/Preloader.js';
 import { AppContext } from "../../Context/AppContext.js";
-import { MoviesContext } from '../../Context/MoviesContext.js';
+// import { MoviesContext } from '../../Context/MoviesContext.js';
 
-export default function MoviesCardList({ presetMovies, movies }) {
+export default function MoviesCardList({ movies, saveMovie, removeMovie, isFavorit, searchMessage }) {
 
-  const { isCorrectSearch, setIsShort, filteredMovies, searchMessage, setIsCorrectSearch, filterCheckbox, setFilteredMovies, searchMoviesEngine, allMovies } = useContext(MoviesContext);
   const { isLoading } = useContext(AppContext);
-
-  // function renderMovies(){
-  //   searchMoviesEngine(filteredMovies);
-  // }
+  // const { searchMessage } = useContext(MoviesContext);
 
   // под вопросом
-  const { initMoviesCount } = presetMovies();
+  // const { initMoviesCount } = presetMovies();
   const [moviesLeft, setMoviesLeft] = useState();
-
-  // useEffect(() => {
-  //   setIsCorrectSearch(true);
-  //   setFilteredMovies(JSON.parse(localStorage.getItem('searchedFilms')));
-  //   // searchMoviesEngine(allMovies);
-  // }, [])
 
   return (
     <section className="movies-card-list">
       <Container sectionClass="movies-card-list__container">
         {isLoading && <Preloader />}
-        {!isCorrectSearch && <p className={`movies-card-list__error movies-card-list__error_active`}>{searchMessage}</p>}
         {/* место для карточек фильмов */}
-        {isCorrectSearch && <ul className="movies-card-list__gallery">
-          {movies.map((movie) => {
-            // setIsSaved(false);
-            return (
-              <MoviesCard
-                key={movie.id}
-                movie={movie} />
-            )
-          })}
-        </ul>}
+        {movies.length === 0
+          ? <p className={`movies-card-list__error 
+              ${isLoading && "movies-card-list__error_hidden"}`}>
+              {searchMessage} </p>
+          : <ul className="movies-card-list__gallery">
+            {movies.map((movie) => {
+              return (
+                <MoviesCard
+                  saveMovie={saveMovie}
+                  removeMovie={removeMovie}
+                  isFavorit={isFavorit}
+                  key={movie.id || movie.movieId}
+                  movie={movie} />
+              )
+            })}
+          </ul>}
         {moviesLeft && <ShowMore />}
       </Container>
     </section>

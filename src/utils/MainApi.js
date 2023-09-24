@@ -71,8 +71,9 @@ class MainApi {
     return this._getResponseData(res);
   }
 
-  async removeMovies(movie) {
-    const res = await fetch(`${this._address}/movies/${movie.id}`, {
+  async removeMovies(id) {
+    const res = await fetch(`${this._address}/movies/${id}`, {
+      // const res = await fetch(`${this._address}/movies/${movie.id}`, {
       method: 'DELETE',
       headers: {
         ...this._headers, 'Authorization': `Bearer ${localStorage.getItem('jwt')}`
@@ -83,7 +84,7 @@ class MainApi {
 }
 
 const api = new MainApi({
-  imageBaseUrl: 'https://api.nomoreparties.co/',
+  imageBaseUrl: 'https://api.nomoreparties.co',
   baseUrl: 'http://localhost:3000',
   headers: {
     'Content-Type': 'application/json'

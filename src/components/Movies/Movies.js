@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
 import { AppContext } from '../../Context/AppContext.js';
-import { MoviesContext } from '../../Context/MoviesContext.js';
 import Header from '../Header/Header.js';
 import Footer from '../Footer/Footer.js';
 import SearchForm from '../SearchForm/SearchForm.js';
@@ -26,6 +25,7 @@ export default function Movies() {
   const [allMovies, setAllMovies] = useState(JSON.parse(localStorage.getItem('films')) || []);
   // значение инпута поисковой строки
   const [searchValue, setSearchValue] = useState(localStorage.getItem('searchString') || '');
+  const searchValueM = 'searchValue';
   // список фильмов подходящих по поисковому запросу
   const localStorageFilteredMovies = JSON.parse(localStorage.getItem('searchedFilms'));
   const [filteredMovies, setFilteredMovies] = useState(localStorageFilteredMovies || []);
@@ -39,7 +39,6 @@ export default function Movies() {
   const [searchMessage, setSearchMessage] = useState('');
   // сообщение об ошибке при пустой поисковой строке
   const [emptySearchError, setEmptySearchError] = useState('');
-
 
   // контроль поисковой строки
   function handleSearchString(e) {
@@ -65,6 +64,7 @@ export default function Movies() {
         const filteredMoviesList = findMovies(dataMovies);
         setFilteredMovies(filteredMoviesList);
         localStorage.setItem('searchedFilms', JSON.stringify(filteredMoviesList));
+        handleErrorMessage();
       })
       .catch((err) => {
         console.error(err);
@@ -77,6 +77,7 @@ export default function Movies() {
       })
   }
 
+  // фильтрация фильмов по поисковому запросу
   function findMovies(rawMovies) {
     return rawMovies.filter((movie) => {
       return movie.nameRU.toLowerCase().includes(searchValue) || movie.nameEN.toLowerCase().includes(searchValue)
@@ -86,12 +87,13 @@ export default function Movies() {
   function handleSearchSubmit() {
     // пустой запрос
     if (!searchValue) {
-      // показать ошибку 
+      // показать ошибку
+      // setSearchMessage(resultMessage.emptySearch);
       setEmptySearchError(resultMessage.emptySearch);
       return;
     }
     // записываем в localStorage поисковый запрос
-    localStorage.setItem('searchString', searchValue);
+    localStorage.setItem(searchValueM, searchValue);
     // не показывать ошибку
     setEmptySearchError('');
     // проверяем начальный список фильмов в стейте
@@ -100,13 +102,15 @@ export default function Movies() {
       getFilms();
       return;
     }
-    // предустанавливаем текст ошибки "ничего не найдено"
-    // handleErrorMessage();
+    // предустанавливаем текст ошибки, если "ничего не найдено"
+    handleErrorMessage();
+
     const filteredMoviesList = findMovies(allMovies);
     setFilteredMovies(filteredMoviesList);
     localStorage.setItem('searchedFilms', JSON.stringify(filteredMoviesList));
   }
 
+  // фильтр короткометражек
   function handleFilterShorts(movies) {
     if (isShort) {
       return movies.filter((movie) => {
@@ -117,9 +121,9 @@ export default function Movies() {
   }
 
   // обработка текста ошибки поискового запроса
-  // function handleErrorMessage() {
-  //   setSearchMessage(searchValue ? resultMessage.findNothing : resultMessage.emptySearch);
-  // }
+  function handleErrorMessage() {
+    setSearchMessage(filteredMovies.length === 0 ? resultMessage.findNothing : '');
+  }
 
   // // фильтрация фильмов по поисковому запросу
   // function searchMoviesEngine(rawMovies) {
@@ -174,13 +178,6 @@ export default function Movies() {
   ///////////////////////////////////////////////////////
   // обработка взаимодействия пользователя с фильмами
 
-  // проверяем наличие фильма в сохранённых
-  function isFavorit(movie) {
-    return userMovies.some((m) => {
-      return m.movieId === movie.id;
-    })
-  };
-
   // сохранение фильма в избранном
   function saveMovie(movie) {
     api.saveMovies(movie)
@@ -194,8 +191,9 @@ export default function Movies() {
 
   // удаление фильма из избранных
   function removeMovie(movie) {
+    const id = movie.id;
     // Отправляем запрос в API и получаем обновлённые данные списка избранных
-    api.removeMovies(movie)
+    api.removeMovies(id)
       .then((movies) => {
         setUserMovies(movies);
       })
@@ -204,45 +202,32 @@ export default function Movies() {
       })
   }
 
+  useEffect(() => {
+    setSearchValue(localStorage.getItem(searchValueM) || '');
+  }, [])
+
   return (
-    <MoviesContext.Provider value={{
-      searchValue, setSearchValue,
-      // checkbox
-      checkIsShort,
-      // submit search
-      findMovies,
-      handleSearchSubmit,
-      // текст ошибки при поиске
-      searchMessage,
-      // текст ошибки при пустом поисковом запросе
-      emptySearchError,
-      // для рендера фильмов
-      // searchMoviesEngine,
-      isCorrectSearch, setIsCorrectSearch,
-      allMovies, setAllMovies,
-      filteredMovies, setFilteredMovies,
-      isError, setIsError,
-      handleSearchString,
-      baseUrl,
-      isFavorit,
-      saveMovie, removeMovie
-    }}>
-      <div className="movies">
-        <Header sectionClass="movies__header" />
-        <main>
-          <SearchForm onSubmit={findMovies} />
-
-          {/* при первом запросе после авторизации появляется Preloader */}
-
-          {/* если ничего не найдено по запросу, то выводится текст "«Ничего не найдено" */}
-
-          {/* список фильмов и кнока ShowMore появятся после поискового запроса */}
-
-          <MoviesCardList presetMovies={presetMoviesList}
-            movies={handleFilterShorts(filteredMovies)} />
-        </main>
-        <Footer />
-      </div>
-    </MoviesContext.Provider>
+    <div className="movies">
+      <Header sectionClass="movies__header" />
+      <main>
+        <SearchForm onSubmit={findMovies}
+          lsNameSearchValue={searchValueM}
+          lsNameisShort="isShort"
+          searchValue={searchValue}
+          handleSearchSubmit={handleSearchSubmit}
+          handleSearchString={handleSearchString}
+          emptySearchError={emptySearchError}
+        />
+        {/* при первом запросе после авторизации появляется Preloader */}
+        {/* если ничего не найдено по запросу, то выводится текст "«Ничего не найдено" */}
+        {/* список фильмов и кнока ShowMore появятся после поискового запроса */}
+        <MoviesCardList presetMovies={presetMoviesList}
+          movies={handleFilterShorts(filteredMovies)}
+          saveMovie={saveMovie}
+          removeMovie={removeMovie}
+        />
+      </main>
+      <Footer />
+    </div>
   )
 }

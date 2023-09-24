@@ -9,6 +9,7 @@ import Register from '../Register/Register.js';
 import Login from '../Login/Login.js';
 import { AppContext } from '../../Context/AppContext.js';
 import Auth from '../../utils/Auth.js';
+import useFormAndValidation from '../../hooks/useFormAndValidations.js';
 import api from '../../utils/MainApi.js';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute.js';
 
@@ -19,6 +20,8 @@ export default function App() {
   // проверка токена
   const { getUserAuth } = Auth({});
   const token = localStorage.getItem('jwt') || '';
+  // хук валидации
+  const { values, setValues } = useFormAndValidation({});
   // стейты состояний
   const [isLoading, setIsLoading] = useState(false);
   const [isLoggedIn, setLoggedIn] = useState(false);
@@ -41,7 +44,7 @@ export default function App() {
     ])
       .then(([userData, userMovies]) => {
         setCurrentUser(userData);
-        // console.log(userData);
+        setValues({ ...values, currentUser});
         setUserMovies(userMovies);
         // console.log(userMovies);
       })
@@ -88,7 +91,7 @@ export default function App() {
         <Routes>
           <Route path='/' element={<Landing />} />
           <Route path='/movies' element={<ProtectedRoute element={Movies} />} />
-          {/* <Route path='/saved-movies' element={<ProtectedRoute element={SavedMovies} />} /> */}
+          <Route path='/saved-movies' element={<ProtectedRoute element={SavedMovies} />} />
           <Route path='/profile' element={<ProtectedRoute element={Profile} />} />
           <Route path="/signin" element={<Login />} />
           <Route path="/signup" element={<Register />} />
