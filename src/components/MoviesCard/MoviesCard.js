@@ -1,24 +1,16 @@
 import { useContext } from "react";
 import { useLocation } from "react-router-dom";
 import Button from "../Button/Button";
-import searchEngine from '../../utils/SearchEngine.js';
 import { AppContext } from "../../Context/AppContext.js";
+import { baseUrl } from "../../utils/constants";
 
-export default function MoviesCard({ movie, saveMovie, removeMovie }) {
+export default function MoviesCard({ movie }) {
 
-  const { baseUrl } = searchEngine({});
-  const { userMovies } = useContext(AppContext);
+  const { isFavorit, saveMovie, removeMovie } = useContext(AppContext);
 
-  // проверяем наличие фильма в сохранённых
-  function isFavorit(movie) {
-    return userMovies.some((m) => {
-      return m.movieId === movie.id;
-    })
-  };
-  
   // определяем страницу на которой находимся
   const location = useLocation();
-
+  // собираем полный путь до изображений
   const url = location.pathname === '/movies' ? baseUrl + movie.image.url : movie.image;
   // длительность фильма в часах и минутах
   const hours = Math.floor(movie.duration / 60);

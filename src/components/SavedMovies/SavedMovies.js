@@ -1,106 +1,80 @@
 import { useContext, useEffect, useState } from 'react';
 import { AppContext } from '../../Context/AppContext.js';
-import { SavedMoviesContext } from '../../Context/SavedMoviesContext.js';
 import Header from "../Header/Header";
 import SearchForm from "../SearchForm/SearchForm";
+import { resultMessage } from '../../utils/constants.js';
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Footer from "../Footer/Footer";
 import searchEngine from '../../utils/SearchEngine.js';
-// подключаем MainApi
-import api from '../../utils/MainApi.js';
 
 export default function SavedMovies() {
 
-  const { userMovies, setUserMovies } = useContext(AppContext);
-  // const [savedMovies, setSavedMovies] = useState(userMovies);
+  const { userMovies } = useContext(AppContext);
+  const { handleFilterShorts, findMovies } = searchEngine({});
+  // значение инпута поисковой строки
+  const [searchString, setSearchString] = useState('');
+  // фильмы найденные по поисковому запросу
+  const [filteredMovies, setFilteredMovies] = useState(userMovies || []);
+  // состояние чекбокса
+  const [isShort, setIsShort] = useState(false);
+  // сообщение об ошибке "ничего не найдено" или "ошибка сервера"
+  const [searchMessage, setSearchMessage] = useState('');
+  // сообщение об ошибке при пустой поисковой строке
+  const [emptySearchError, setEmptySearchError] = useState('');
 
-  const {
-    searchValue, setSearchValue, searchMessage, setSearchMessage, emptySearchError,
-    handleFilterShorts, handleSearchString, checkIsShort, resultMessage,
-    handleErrorMessage, filteredMovies, setFilteredMovies, findMovies } = searchEngine({});
+  // контроль поисковой строки
+  function handleSearchString(e) {
+    const stringValue = e.target.value.toLowerCase();
+    setSearchString(stringValue);
+  }
 
-  // setFilteredMovies(JSON.parse(localStorage.getItem('films')) || userMovies);
-  const searchValueSM = 'searchValueSM';
+  // проверка состояния чекбокса
+  function handleCheckbox(e) {
+    const checkValue = e.target.checked;
+    setIsShort(checkValue);
+  }
+
+  // обработка текста ошибки поискового запроса
+  function handleErrorMessage(length) {
+    setSearchMessage(length === 0 ? resultMessage.findNothing : '');
+  }
 
   function handleSearchSubmit() {
     // пустой запрос
-    if (!searchValue) {
+    if (!searchString) {
       // показать ошибку
-      // setSearchMessage(resultMessage.emptySearch);
-      setSearchMessage(resultMessage.emptySearch);
+      setEmptySearchError(resultMessage.emptySearch);
       return;
     }
-    // записываем в localStorage поисковый запрос
-    localStorage.setItem(searchValueSM, searchValue);
-    // не показывать ошибку
-    // setSearchMessage('');
+    // убираем тексты ошибок
+    setEmptySearchError('');
+    setSearchMessage('');
+    const searchResult = findMovies(userMovies, searchString);
     // предустанавливаем текст ошибки, если "ничего не найдено"
-    handleErrorMessage();
-
-    const filteredMoviesList = findMovies(userMovies);
-    setFilteredMovies(filteredMoviesList);
-    // setFilteredMovies(filteredMoviesList);
-    localStorage.setItem('searchedFilmsSM', JSON.stringify(filteredMoviesList));
-  }
-
-  // function handleSearchSubmit() {
-  //   // записываем в localStorage поисковый запрос
-  //   localStorage.setItem('searchString', searchValue);
-  //   // не показывать ошибку
-  //   setSearchMessage('');
-  //   // проверяем начальный список фильмов в стейте
-  //   if (allMovies.length === 0) {
-  //     //отправляем запрос на сервер
-  //     getFilms();
-  //     return;
-  //   }
-  //   // предустанавливаем текст ошибки, если "ничего не найдено"
-  //   handleErrorMessage();
-
-  //   const filteredMoviesList = findMovies(allMovies);
-  //   setFilteredMovies(filteredMoviesList);
-  //   localStorage.setItem('searchedFilms', JSON.stringify(filteredMoviesList));
-  // }
-
-
-
-
-  // удаление фильма из избранных
-  function removeMovie(movie) {
-    console.log(movie);
-    const id = movie.movieId;
-    // Отправляем запрос в API и получаем обновлённые данные списка избранных
-    api.removeMovies(id)
-      .then((movies) => {
-        setUserMovies(movies);
-      })
-      .catch((err) => {
-        console.error(err);
-      })
+    handleErrorMessage(searchResult.length);
+    setFilteredMovies(searchResult);
   }
 
   useEffect(()=>{
-    setSearchValue(localStorage.getItem(searchValueSM) || '');
-  }, [])
+    setFilteredMovies(userMovies);
+  }, [userMovies])
 
   return (
     <div className="saved-movies">
       <Header sectionClass="saved-movies__header" />
       <main>
         <SearchForm
-          lsNameSearchValue={searchValueSM}
-          lsNameisShort="isShortSM"
-          checkIsShort={checkIsShort}
-          searchValue={searchValue}
-          setSearchValue={setSearchValue}
+          isShort={isShort}
+          checkIsShort={handleCheckbox}
+          searchValue={searchString}
           handleSearchSubmit={handleSearchSubmit}
           handleSearchString={handleSearchString}
           emptySearchError={emptySearchError}
         />
         <MoviesCardList
-          movies={handleFilterShorts(filteredMovies)}
-          // movies={handleFilterShorts(userMovies)}
-          removeMovie={removeMovie} />
+          movies={handleFilterShorts(filteredMovies, isShort)}
+          searchMessage={searchMessage}
+        />
       </main>
       <Footer />
     </div>

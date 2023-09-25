@@ -73,7 +73,6 @@ class MainApi {
 
   async removeMovies(id) {
     const res = await fetch(`${this._address}/movies/${id}`, {
-      // const res = await fetch(`${this._address}/movies/${movie.id}`, {
       method: 'DELETE',
       headers: {
         ...this._headers, 'Authorization': `Bearer ${localStorage.getItem('jwt')}`

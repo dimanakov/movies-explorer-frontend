@@ -1,33 +1,19 @@
-// import { useContext } from 'react';
 import Container from "../Container/Container"
 import icon from '../../images/search-icon.svg';
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
-// import { MoviesContext } from '../../Context/MoviesContext.js';
-import searchEngine from '../../utils/SearchEngine.js';
 
-export default function SearchForm({ handleSearchSubmit, searchValue, setSearchValue,
-  handleSearchString, emptySearchError, checkIsShort, lsNameisShort, lsNameSearchValue, isShort }) {
+export default function SearchForm({ handleSearchSubmit, searchString,
+  checkIsShort, isShort, handleSearchString, emptySearchError }) {
 
-  // const {
-  //   searchValue, handleSearchSubmit, handleSearchString, emptySearchError
-  // } = useContext(MoviesContext);
-
-  const { searchMessage } = searchEngine({});
-
-  // const [searchValue, setSearchValue] = useState(localStorage.getItem('searchString') || '');
-  // function getSearchString(lsNameSearchValue){
-  //   setSearchValue(localStorage.getItem(lsNameSearchValue) || '')
-  // }
-  // const lsSearchValue = localStorage.getItem(lsNameSearchValue) || '';
-  // useState(localStorage.getItem('searchString')
-
-  function handleChange(e) {
-    handleSearchString(e);
-  }
-
+  // контроль сабмита формы
   function handleSubmit(e) {
     e.preventDefault();
     handleSearchSubmit();
+  }
+
+  // контроль инпута поиска
+  function handleChange(e) {
+    handleSearchString(e);
   }
 
   return (
@@ -41,8 +27,7 @@ export default function SearchForm({ handleSearchSubmit, searchValue, setSearchV
               alt="icon" />
             <input className="search-form__input"
               name="search"
-              value={searchValue}
-              // value={searchValue}
+              value={searchString}
               onChange={handleChange}
               type="text"
               aria-label="search-form"
@@ -53,13 +38,11 @@ export default function SearchForm({ handleSearchSubmit, searchValue, setSearchV
               aria-label="submit"></button>
           </form>
           <div className="search-form__border"></div>
-          <FilterCheckbox sectionClass="search-form__checkbox" 
-            checkIsShort={checkIsShort} 
-            lsNameisShort={lsNameisShort}
-            isShort={isShort}/>
+          <FilterCheckbox sectionClass="search-form__checkbox"
+            checkIsShort={checkIsShort}
+            isShort={isShort} />
         </div>
-        <span className="search-form__error">{searchMessage}</span>
-        {/* <span className="search-form__error">{emptySearchError}</span> */}
+        <span className="search-form__error">{emptySearchError}</span>
       </Container>
     </section>
   )

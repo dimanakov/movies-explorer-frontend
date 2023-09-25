@@ -44,9 +44,8 @@ export default function App() {
     ])
       .then(([userData, userMovies]) => {
         setCurrentUser(userData);
-        setValues({ ...values, currentUser});
+        setValues({ ...values, currentUser });
         setUserMovies(userMovies);
-        // console.log(userMovies);
       })
       .catch((err) => { //попадаем сюда если один из промисов завершится ошибкой 
         console.error(err);
@@ -69,6 +68,40 @@ export default function App() {
     }
   }
 
+  ///////////////////////////////////////////////////////
+  // обработка взаимодействия пользователя с фильмами
+
+  // проверка наличия фильма в избранных
+  function isFavorit(movie) {
+    return userMovies.some((m) => {
+      return m.movieId === movie.id;
+    })
+  };
+
+  // сохранение фильма в избранных
+  function saveMovie(movie) {
+    api.saveMovies(movie)
+      .then((movie) => {
+        setUserMovies([...userMovies, movie]);
+      })
+      .catch((err) => {
+        console.error(err);
+      })
+  }
+
+  // удаление фильма из избранных
+  function removeMovie(movie) {
+    const id = movie.id || movie.movieId;
+    // Отправляем запрос в API и получаем обновлённые данные списка избранных
+    api.removeMovies(id)
+      .then((movies) => {
+        setUserMovies(movies);
+      })
+      .catch((err) => {
+        console.error(err);
+      })
+  }
+
   // проверка токена пользователя
   useEffect(() => {
     checkToken();
@@ -85,7 +118,8 @@ export default function App() {
       currentUser, setCurrentUser,
       userMovies, setUserMovies,
       errorMessage, setErrorMessage,
-      handleErrorPage
+      handleErrorPage, isFavorit,
+      saveMovie, removeMovie
     }}>
       <div className="page">
         <Routes>
