@@ -1,20 +1,21 @@
-import { useEffect, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useContext, useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import useFormAndValidation from '../../hooks/useFormAndValidations.js';
 import InputLine from '../InputLine/InputLine.js';
 import SignWithForm from '../SignWithForm/SignWithForm.js';
 import { SignContext } from '../../Context/SignContext.js';
 import { AppContext } from '../../Context/AppContext.js';
 import Auth from '../../utils/Auth.js';
-import { regexpEmail } from '../../utils/constants.js';
+import { regexpEmail, resultMessage } from '../../utils/constants.js';
 
 export default function Login() {
 
   const navigate = useNavigate();
-  const { setIsLoading, setLoggedIn, setCurrentUser, handleErrorPage, setErrorMessage } = useContext(AppContext);
+  const location = useLocation();
+  const { setIsLoading, isLoading, isLoggedIn, setLoggedIn } = useContext(AppContext);
   const { values, handleChange, errors, isValid, setValues, setErrors, setIsValid, resetForm } = useFormAndValidation({});
   const { login } = Auth({});
-  const errorsLoginPage = { errorPageMessage: 'При авторизации произошла ошибка. Токен не передан или передан не в том формате.', errorCodePage: 401 }
+  const [errorMessage, setErrorMessage] = useState('');
 
   function handleSubmitLogin(e) {
     setIsLoading(true);
@@ -25,9 +26,14 @@ export default function Login() {
         navigate('/movies', { replace: true });
       })
       .catch((err) => {
-        err.then((res) => {
-          handleErrorPage(res, errorsLoginPage);
-        });
+        console.error(err);
+        if (err.status === 403) {
+          return setErrorMessage(resultMessage.failToken);
+        }
+        if (err.status === 401) {
+          return setErrorMessage(resultMessage.wrongEmailPass);
+        }
+        setErrorMessage(resultMessage.failLogin);
       })
       .finally(() => {
         setIsLoading(false)
@@ -35,10 +41,13 @@ export default function Login() {
   }
 
   useEffect(() => {
+    if(isLoggedIn && location.pathname === '/signin'){
+      navigate('/', { replace: true });
+    }
     setIsValid(false);
     resetForm();
     setErrorMessage('');
-  }, [setIsValid, resetForm, setErrorMessage])
+  }, [setIsValid, resetForm, setErrorMessage, location])
 
   return (
     <SignContext.Provider value={{ values, handleChange, errors, isValid, setValues, setErrors }}>
@@ -47,7 +56,10 @@ export default function Login() {
           sectionClass="login__error"
           title="Рады видеть!"
           onSubmit={handleSubmitLogin}
-          buttonText="Войти">
+          buttonTextAction='Авторизация...'
+          buttonText="Войти"
+          errorMessage={errorMessage}
+          isLoading={isLoading}>
           <InputLine name="email"
             type="email"
             pattern={regexpEmail.source}

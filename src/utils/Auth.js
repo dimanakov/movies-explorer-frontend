@@ -6,7 +6,10 @@ export default function Auth() {
 
   function _getResponseData(res) {
     if (!res.ok) {
-      return Promise.reject(res.json())
+      return Promise.reject({
+        status: res.status,
+        message: `Ошибка: ${res.status}`,
+      })
     }
     return res.json();
   }

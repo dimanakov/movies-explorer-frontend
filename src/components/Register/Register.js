@@ -1,20 +1,21 @@
-import { useEffect, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect, useContext } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import useFormAndValidation from '../../hooks/useFormAndValidations.js';
 import InputLine from '../InputLine/InputLine.js';
 import SignWithForm from '../SignWithForm/SignWithForm.js';
 import { SignContext } from '../../Context/SignContext.js';
 import { AppContext } from '../../Context/AppContext.js';
 import Auth from '../../utils/Auth.js';
-import { regexpEmail, regexpName } from '../../utils/constants.js';
+import { regexpEmail, regexpName, resultMessage } from '../../utils/constants.js';
 
 export default function Register() {
 
   const navigate = useNavigate();
-  const { setIsLoading, setLoggedIn, handleErrorPage, setErrorMessage } = useContext(AppContext);
+  const location = useLocation();
+  const { setIsLoading, isLoading, isLoggedIn, setLoggedIn } = useContext(AppContext);
   const { values, handleChange, errors, isValid, setValues, setErrors, setIsValid, resetForm } = useFormAndValidation({});
   const { register, login } = Auth({});
-  const errorsRegisterPage = { errorPageMessage: 'При регистрации пользователя произошла ошибка.', errorCodePage: 409 }
+  const [errorMessage, setErrorMessage] = useState('');
 
   async function handleSubmitRegister() {
     setIsLoading(true); // заменить текст кнопки на время ответа сервера
@@ -28,13 +29,18 @@ export default function Register() {
           })
           .catch((err) => {
             console.error(err);
+            if (err.status === 409) {
+              return setErrorMessage(resultMessage.usedEmail);
+            }
+            setErrorMessage(resultMessage.failLogin);
           })
       })
-      .catch((err) => { //попадаем сюда если один из промисов завершится ошибкой 
-        // обрабатываем асинхронный промис с ошибкой
-        err.then((res) => {
-          handleErrorPage(res, errorsRegisterPage);
-        });
+      .catch((err) => { 
+        console.error(err);
+        if (err.status === 409) {
+          return setErrorMessage(resultMessage.usedEmail);
+        }
+        setErrorMessage(resultMessage.failRegister);
       })
       .finally((res) => {
         setIsLoading(false);
@@ -42,10 +48,13 @@ export default function Register() {
   }
 
   useEffect(() => {
+    if (isLoggedIn && location.pathname === '/signin') {
+      navigate('/', { replace: true });
+    }
     setIsValid(false);
     resetForm();
     setErrorMessage('');
-  }, [setIsValid, resetForm, setErrorMessage])
+  }, [setIsValid, resetForm, setErrorMessage, location])
 
   return (
     <SignContext.Provider value={{ values, handleChange, errors, isValid, setValues, setErrors }}>
@@ -55,7 +64,9 @@ export default function Register() {
           title="Добро пожаловать!"
           onSubmit={handleSubmitRegister}
           buttonText="Зарегистрироваться"
-          buttonTextAction='Регистрация...'>
+          buttonTextAction='Регистрация...'
+          errorMessage={errorMessage}
+          isLoading={isLoading}>
           <InputLine name="name"
             type="text"
             placeholder="Имя"

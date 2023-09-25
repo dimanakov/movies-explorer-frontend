@@ -9,7 +9,7 @@ import Register from '../Register/Register.js';
 import Login from '../Login/Login.js';
 import { AppContext } from '../../Context/AppContext.js';
 import Auth from '../../utils/Auth.js';
-import useFormAndValidation from '../../hooks/useFormAndValidations.js';
+// import useFormAndValidation from '../../hooks/useFormAndValidations.js';
 import api from '../../utils/MainApi.js';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute.js';
 
@@ -20,8 +20,6 @@ export default function App() {
   // проверка токена
   const { getUserAuth } = Auth({});
   const token = localStorage.getItem('jwt') || '';
-  // хук валидации
-  const { values, setValues } = useFormAndValidation({});
   // стейты состояний
   const [isLoading, setIsLoading] = useState(false);
   const [isLoggedIn, setLoggedIn] = useState(false);
@@ -44,7 +42,6 @@ export default function App() {
     ])
       .then(([userData, userMovies]) => {
         setCurrentUser(userData);
-        setValues({ ...values, currentUser });
         setUserMovies(userMovies);
       })
       .catch((err) => { //попадаем сюда если один из промисов завершится ошибкой 

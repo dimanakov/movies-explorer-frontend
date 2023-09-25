@@ -7,7 +7,10 @@ class MainApi {
 
   _getResponseData(res) {
     if (!res.ok) {
-      return Promise.reject(`Ошибка в промисе запроса: ${res.status}`)
+      return Promise.reject({
+        status: res.status,
+        message: `Ошибка: ${res.status}`,
+      })
     }
     return res.json();
   }

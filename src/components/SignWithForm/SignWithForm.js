@@ -2,13 +2,11 @@ import Logo from '../Logo/Logo.js';
 import { Link, useLocation } from 'react-router-dom';
 import { useContext } from 'react';
 import { SignContext } from '../../Context/SignContext.js';
-import { AppContext } from '../../Context/AppContext.js';
 
-export default function SignWithForm({ formName, title, children, buttonText, buttonTextAction, sectionClass, onSubmit }) {
+export default function SignWithForm({ isLoading, errorMessage, formName, title, children, buttonText, buttonTextAction, sectionClass, onSubmit }) {
 
   const location = useLocation();
   const { isValid } = useContext(SignContext);
-  const { isLoading, errorMessage } = useContext(AppContext);
 
   function handleSubmit(e) {
     e.preventDefault();
