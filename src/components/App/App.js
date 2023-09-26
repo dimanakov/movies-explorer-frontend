@@ -26,12 +26,6 @@ export default function App() {
   // стейты данных о пользователе
   const [currentUser, setCurrentUser] = useState({});
   const [userMovies, setUserMovies] = useState([]);
-  // обработчик ошибок регистрации/авторизации
-  function handleErrorPage(obj, errorPage) {
-    const { errorCodePage, errorPageMessage } = errorPage;
-    const { statusCode, message } = obj;
-    setErrorMessage((statusCode === errorCodePage ? message : errorPageMessage));
-  }
 
   // получаем данные пользователя
   function getUserData() {
@@ -113,8 +107,7 @@ export default function App() {
       isLoading, setIsLoading,
       currentUser, setCurrentUser,
       userMovies, setUserMovies,
-      errorMessage, setErrorMessage,
-      handleErrorPage, isFavorit,
+      errorMessage, setErrorMessage, isFavorit,
       saveMovie, removeMovie
     }}>
       <div className="page">
