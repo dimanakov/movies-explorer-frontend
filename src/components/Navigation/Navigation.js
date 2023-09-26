@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import Button from '../Button/Button.js';
 
-
 export default function Navigation() {
 
   const [menu, setMenu] = useState(false);
@@ -12,9 +11,9 @@ export default function Navigation() {
   }
 
   return (
-
     <div className="navigation">
       <Button sectionClass='navigation__burger-button'
+        buttonType="button"
         label='открыть меню'
         onClick={handleMenuButton}>
       </Button>
@@ -48,6 +47,7 @@ export default function Navigation() {
           aria-label="аккаунт">
         </NavLink>
         <Button sectionClass='navigation__close-button'
+          buttonType="button"
           label='закрыть меню'
           onClick={handleMenuButton}>
         </Button>

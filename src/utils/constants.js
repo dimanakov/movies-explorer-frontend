@@ -19,6 +19,22 @@ const resultMessage = {
   failToken: 'При авторизации произошла ошибка. Переданный токен некорректен.',
   serverError: 'На сервере произошла ошибка.',
 }
+// брейкпоинт для карточек фильмов
+const screen = { sm: 320, md: 768, lg: 1137, xl: 1280 };
 
-module.exports = { regexpURL, regexpName, regexpEmail, resultMessage, baseUrl };
+// начальное количестьво карточек
+const XL_ROW_INIT_CARDS = 16;
+const LG_ROW_INIT_CARDS = 12;
+const MD_ROW_INIT_CARDS = 8;
+const SM_ROW_INIT_CARDS = 5;
+
+// количестьво добавляемых карточек
+const XL_ADD_CARD = 4;
+const LG_ADD_CARD = 3;
+const MD_ADD_CARD = 2;
+const SM_ADD_CARD = 2;
+
+module.exports = { regexpURL, regexpName, regexpEmail, resultMessage, baseUrl, 
+  screen, XL_ROW_INIT_CARDS, LG_ROW_INIT_CARDS, MD_ROW_INIT_CARDS, SM_ROW_INIT_CARDS,
+  XL_ADD_CARD, LG_ADD_CARD, MD_ADD_CARD, SM_ADD_CARD };
 

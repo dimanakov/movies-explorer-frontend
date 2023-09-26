@@ -6,11 +6,16 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList.js';
 import presetMoviesList from '../../utils/presetMoviesCount.js';
 import searchEngine from '../../utils/SearchEngine.js';
 import moviesApi from '../../utils/MoviesApi.js';
-import { resultMessage } from '../../utils/constants.js';
+import {
+  resultMessage, XL_ROW_INIT_CARDS, LG_ROW_INIT_CARDS, MD_ROW_INIT_CARDS,
+  SM_ROW_INIT_CARDS, XL_ADD_CARD, LG_ADD_CARD, MD_ADD_CARD, SM_ADD_CARD
+} from '../../utils/constants.js';
 import ShowMore from '../ShowMore/ShowMore.js';
+import useResize from '../../hooks/useResize.js';
 
 export default function Movies() {
 
+  // подключаем поисковый движок
   const { handleFilterShorts, findMovies } = searchEngine({});
   // список всех фильмов полученных от сервера
   const [allMovies, setAllMovies] = useState(JSON.parse(localStorage.getItem('films')) || []);
@@ -26,6 +31,26 @@ export default function Movies() {
   const [searchMessage, setSearchMessage] = useState('');
   // сообщение об ошибке при пустой поисковой строке
   const [emptySearchError, setEmptySearchError] = useState('');
+  // хук для контроля ширины экрана
+  const { isScreenSM, isScreenMD, isScreenLG, isScreenXL } = useResize({});
+  // начальное количество показываемых карточек
+  const [initialCardsCount, setInitialCardsCount] = useState(countInitialCard());
+
+  // задаём количество показываемых карточек
+  function countInitialCard() {
+    if (isScreenXL) { return XL_ROW_INIT_CARDS }
+    else if (isScreenLG) { return LG_ROW_INIT_CARDS }
+    else if (isScreenMD) { return MD_ROW_INIT_CARDS }
+    else if (isScreenSM) { return SM_ROW_INIT_CARDS }
+  }
+
+  // добавляем показываемые карточки
+  function addCardCount() {
+    if (isScreenXL) { return setInitialCardsCount(initialCardsCount + XL_ADD_CARD) }
+    else if (isScreenLG) { return setInitialCardsCount(initialCardsCount + LG_ADD_CARD) }
+    else if (isScreenMD) { return setInitialCardsCount(initialCardsCount + MD_ADD_CARD) }
+    else if (isScreenSM) { return setInitialCardsCount(initialCardsCount + SM_ADD_CARD) }
+  }
 
   // контроль поисковой строки
   function handleSearchString(e) {
@@ -106,8 +131,10 @@ export default function Movies() {
         <MoviesCardList presetMovies={presetMoviesList}
           isLoadingFilms={isLoadingFilms}
           searchMessage={searchMessage}
+          initialCardsCount={initialCardsCount}
           movies={handleFilterShorts(filteredMovies, isShort)} />
-        <ShowMore/>
+        {(initialCardsCount <= handleFilterShorts(filteredMovies, isShort).length)
+          && <ShowMore onClick={addCardCount} />}
       </main>
       <Footer />
     </div>
