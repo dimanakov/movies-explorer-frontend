@@ -12,14 +12,19 @@ export default function Register() {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const { setIsLoading, isLoading, isLoggedIn, setLoggedIn } = useContext(AppContext);
-  const { values, handleChange, errors, isValid, setValues, setErrors, setIsValid, resetForm } = useFormAndValidation({});
+  const {
+    setIsLoading, isLoading, isLoggedIn,
+    setLoggedIn } = useContext(AppContext);
+  const { values, handleChange, errors, isValid, setValues,
+    setErrors, setIsValid, resetForm } = useFormAndValidation({});
   const { register, login } = Auth({});
   const [errorMessage, setErrorMessage] = useState('');
 
   async function handleSubmitRegister() {
-    setIsLoading(true); // заменить текст кнопки на время ответа сервера
-    register(values.name, values.email, values.password) // отправить запрос на регистрацию: почта, пароль
+    // заменить текст кнопки на время ответа сервера
+    setIsLoading(true); 
+    // отправить запрос на регистрацию: почта, пароль
+    register(values.name, values.email, values.password) 
       .then((res) => {
         login(values.email, values.password)
           .then((res) => {
@@ -35,7 +40,7 @@ export default function Register() {
             setErrorMessage(resultMessage.failLogin);
           })
       })
-      .catch((err) => { 
+      .catch((err) => {
         console.error(err);
         if (err.status === 409) {
           return setErrorMessage(resultMessage.usedEmail);
@@ -54,7 +59,7 @@ export default function Register() {
     setIsValid(false);
     resetForm();
     setErrorMessage('');
-  }, [setIsValid, resetForm, setErrorMessage, location])
+  }, [setIsValid, resetForm, setErrorMessage, location, isLoggedIn, navigate])
 
   return (
     <SignContext.Provider value={{ values, handleChange, errors, isValid, setValues, setErrors }}>

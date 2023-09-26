@@ -1,7 +1,6 @@
 export default function Auth() {
 
-  // const baseUrl = 'https://api.get-mesto.nomoreparties.co';
-  const baseUrl = 'http://localhost:3000';
+  const baseUrl = 'https://api.moviebag.nomoredomainsicu.ru';
   const headers = { 'Content-Type': 'application/json' };
 
   function _getResponseData(res) {

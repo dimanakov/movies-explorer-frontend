@@ -9,7 +9,6 @@ import Register from '../Register/Register.js';
 import Login from '../Login/Login.js';
 import { AppContext } from '../../Context/AppContext.js';
 import Auth from '../../utils/Auth.js';
-// import useFormAndValidation from '../../hooks/useFormAndValidations.js';
 import api from '../../utils/MainApi.js';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute.js';
 

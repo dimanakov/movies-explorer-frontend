@@ -51,13 +51,13 @@ export default function MoviesCard({ movie }) {
       {location.pathname === "/movies" &&
         <Button sectionClass={`movies-card__save-button
               ${saveMovieButtonClassName}`}
-          type="button"
+          buttonType="button"
           aria-label="сохранить"
           onClick={handleFavoritClick}
         ></Button>}
       {location.pathname === "/saved-movies" &&
         <Button sectionClass="movies-card__remove-button"
-          type="button"
+          buttonType="button"
           aria-label="удалить"
           onClick={handleRemoveClick}
         ></Button>}

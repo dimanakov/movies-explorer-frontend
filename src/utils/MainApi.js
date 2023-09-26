@@ -87,7 +87,7 @@ class MainApi {
 
 const api = new MainApi({
   imageBaseUrl: 'https://api.nomoreparties.co',
-  baseUrl: 'http://localhost:3000',
+  baseUrl: 'https://api.moviebag.nomoredomainsicu.ru',
   headers: {
     'Content-Type': 'application/json'
   },

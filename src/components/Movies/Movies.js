@@ -3,7 +3,6 @@ import Header from '../Header/Header.js';
 import Footer from '../Footer/Footer.js';
 import SearchForm from '../SearchForm/SearchForm.js';
 import MoviesCardList from '../MoviesCardList/MoviesCardList.js';
-import presetMoviesList from '../../utils/presetMoviesCount.js';
 import searchEngine from '../../utils/SearchEngine.js';
 import moviesApi from '../../utils/MoviesApi.js';
 import {
@@ -128,9 +127,8 @@ export default function Movies() {
         {/* при первом запросе после авторизации появляется Preloader */}
         {/* если ничего не найдено по запросу, то выводится текст "«Ничего не найдено" */}
         {/* список фильмов и кнока ShowMore появятся после поискового запроса */}
-        <MoviesCardList presetMovies={presetMoviesList}
+        <MoviesCardList searchMessage={searchMessage}
           isLoadingFilms={isLoadingFilms}
-          searchMessage={searchMessage}
           initialCardsCount={initialCardsCount}
           movies={handleFilterShorts(filteredMovies, isShort)} />
         {(initialCardsCount <= handleFilterShorts(filteredMovies, isShort).length)

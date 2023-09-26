@@ -47,7 +47,7 @@ export default function Login() {
     setIsValid(false);
     resetForm();
     setErrorMessage('');
-  }, [setIsValid, resetForm, setErrorMessage, location])
+  }, [setIsValid, resetForm, setErrorMessage, location, isLoggedIn, navigate])
 
   return (
     <SignContext.Provider value={{ values, handleChange, errors, isValid, setValues, setErrors }}>
