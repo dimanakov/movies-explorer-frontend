@@ -56,8 +56,9 @@ export default function SavedMovies() {
   }
 
   useEffect(()=>{
-    setFilteredMovies(userMovies);
-  }, [userMovies])
+    setFilteredMovies(findMovies(userMovies, searchString));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userMovies]);
 
   return (
     <div className="saved-movies">

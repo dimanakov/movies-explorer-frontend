@@ -98,6 +98,8 @@ export default function Movies() {
     // убираем тексты ошибок
     setEmptySearchError('');
     setSearchMessage('');
+    // обновляем начальное количество карточек
+    setInitialCardsCount(countInitialCard());
     // записываем в localStorage поисковый запрос
     localStorage.setItem('searchString', searchString);
     // проверяем начальный список фильмов в стейте

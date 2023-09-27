@@ -63,9 +63,9 @@ class MainApi {
         duration: movie.duration,
         year: movie.year,
         description: movie.description,
-        image: this._imageBaseUrl+movie.image.url,
+        image: this._imageBaseUrl + movie.image.url,
         trailerLink: movie.trailerLink,
-        thumbnail: this._imageBaseUrl+movie.image.formats.thumbnail.url,
+        thumbnail: this._imageBaseUrl + movie.image.formats.thumbnail.url,
         nameRU: movie.nameRU,
         nameEN: movie.nameEN,
         movieId: movie.id
