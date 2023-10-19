@@ -30,3 +30,7 @@
 Используемый макет: light-3
 
 Адрес репозитория: https://github.com/dimanakov/movies-explorer-frontend
+
+Ссылка на pull-request: https://github.com/dimanakov/movies-explorer-frontend/pull/2
+
+Адрес задеплоенного проекта: https://moviebag.nomoredomainsicu.ru

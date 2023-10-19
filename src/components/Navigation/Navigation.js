@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import Button from '../Button/Button.js';
 
-
 export default function Navigation() {
 
   const [menu, setMenu] = useState(false);
@@ -12,11 +11,11 @@ export default function Navigation() {
   }
 
   return (
-
     <div className="navigation">
       <Button sectionClass='navigation__burger-button'
+        buttonType="button"
         label='открыть меню'
-        handleClick={handleMenuButton}>
+        onClick={handleMenuButton}>
       </Button>
       <nav className={`navigation__navbar ${menu ? 'navigation__navbar_active' : ''}`}>
         <ul className="navigation__menu">
@@ -48,8 +47,9 @@ export default function Navigation() {
           aria-label="аккаунт">
         </NavLink>
         <Button sectionClass='navigation__close-button'
+          buttonType="button"
           label='закрыть меню'
-          handleClick={handleMenuButton}>
+          onClick={handleMenuButton}>
         </Button>
       </nav>
     </div>

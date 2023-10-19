@@ -14,6 +14,7 @@ export default function InputLine(props) {
         onChange={handleChange}
         type={props.type}
         placeholder={props.placeholder}
+        pattern={props.pattern}
         aria-label={props.placeholder}
         minLength={props.minLength}
         maxLength={props.maxLength}

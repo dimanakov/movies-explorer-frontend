@@ -6,7 +6,7 @@ export default function PageNotFound() {
   const path = useNavigate();
 
   function goBack() {
-    path(-1);
+    path(-3);
   }
 
   return (
@@ -15,7 +15,7 @@ export default function PageNotFound() {
       <p className="page-not-found__subtitle">Страница не найдена</p>
       <Button buttonType="button"
         sectionClass="page-not-found__link"
-        handleClick={goBack}>Назад</Button>
+        onClick={goBack}>Назад</Button>
     </main>
   );
 }

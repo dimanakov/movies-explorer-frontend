@@ -1,23 +1,26 @@
 import Container from "../Container/Container.js";
 import MoviesCard from "../MoviesCard/MoviesCard.js";
+import Preloader from '../Preloader/Preloader.js';
 
-export default function MoviesCardList({ movies, presetMovies }) {
+export default function MoviesCardList({ movies, searchMessage, isLoadingFilms, initialCardsCount }) {
 
-  const { initMoviesCount } = presetMovies();
-  
   return (
-    <section className="movies">
-      <Container sectionClass="movies__container">
-        <ul className="movies__gallery">
-          {/* место для карточек фильмов */}
-          {movies.slice(0, initMoviesCount).map((movie) => {
-            return (
-              <MoviesCard
-                key={movie.id}
-                movie={movie} />
-            )
-          })}
-        </ul>
+    <section className="movies-card-list">
+      <Container sectionClass="movies-card-list__container">
+        {isLoadingFilms && <Preloader />}
+        {/* место для карточек фильмов */}
+        {movies.length === 0
+          ? <p className="movies-card-list__error">
+            {searchMessage} </p>
+          : <ul className="movies-card-list__gallery">
+            {movies.slice(0, initialCardsCount).map((movie) => {
+              return (
+                <MoviesCard
+                  key={movie.id || movie.movieId}
+                  movie={movie} />
+              )
+            })}
+          </ul>}
       </Container>
     </section>
   )

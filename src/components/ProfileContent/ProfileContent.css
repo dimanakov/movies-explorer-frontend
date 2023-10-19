@@ -44,7 +44,7 @@
 }
 
 .profile-content__group_type_edit {
-  margin-top: 29vh;
+  margin-top: 5vh;
 }
 
 .text {
@@ -71,12 +71,23 @@
 }
 
 .profile-content__error {
+  text-align: center;
   min-height: 17px;
   color: #f00;
   visibility: hidden;
 }
 
-.profile-content__error_active {
+.profile-content__success {
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 32px;
+  line-height: normal;
+  min-height: 30px;
+  color: green;
+  visibility: hidden;
+}
+
+.profile-content__message_active {
   visibility: visible;
 }
 
@@ -119,7 +130,7 @@
   }
 
   .profile-content__group_type_edit {
-    margin-top: 19vh;
+    margin-top: 6vh;
   }
 }
 
@@ -141,11 +152,17 @@
     margin-bottom: 10vh;
   }
 
+    .profile-content__success {
+      margin-bottom: 20vh;
+      font-size: 14px;
+      min-height: 20px;
+    }
+
   .profile-content__group_type_save {
     margin-top: 22.4vh;
   }
 
   .profile-content__group_type_edit {
-    margin-top: 46.7vh;
+    margin-top: 12.7vh;
   }
 }
